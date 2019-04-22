@@ -1,29 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.swpu.uchain.blog.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.User" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="role" property="role" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="true_name" property="trueName" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="head_portrait" property="headPortrait" jdbcType="LONGVARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.uchain.blog.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="true_name" jdbcType="VARCHAR" property="trueName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="head_portrait" jdbcType="LONGVARCHAR" property="headPortrait" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.User" >
+  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.User">
     insert into user (id, phone_number, `password`, 
       `role`, username, true_name, 
-      email, head_portrait)
+      email, birthday, head_portrait
+      )
     values (#{id,jdbcType=BIGINT}, #{phoneNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{role,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{headPortrait,jdbcType=LONGVARCHAR})
+      #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{headPortrait,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.User" >
+  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.User">
     update user
     set phone_number = #{phoneNumber,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
@@ -31,20 +34,24 @@
       username = #{username,jdbcType=VARCHAR},
       true_name = #{trueName,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
       head_portrait = #{headPortrait,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, phone_number, `password`, `role`, username, true_name, email, head_portrait
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, phone_number, `password`, `role`, username, true_name, email, birthday, 
+    head_portrait
     from user
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, phone_number, `password`, `role`, username, true_name, email, head_portrait
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, phone_number, `password`, `role`, username, true_name, email, birthday, 
+    head_portrait
     from user
   </select>
   <select id="getUserByPhone" resultType="com.swpu.uchain.blog.entity.User">
-    select id,phone_number,`password`, `role`, username, true_name, email, head_portrait
+    select id, phone_number, `password`, `role`, username, true_name, email, birthday,
+    head_portrait
     from user
     where phone_number=#{phoneNumber}
   </select>
