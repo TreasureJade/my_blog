@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @ClassName AuthRoleInterceptor
  * @Author hobo
  * @Date 19-4-22 下午7:47
- * @Description
+ * @Description 权限验证
  **/
 @Slf4j
 @Service

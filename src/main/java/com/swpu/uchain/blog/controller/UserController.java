@@ -1,5 +1,7 @@
 package com.swpu.uchain.blog.controller;
 
+import com.swpu.uchain.blog.accessctro.RoleContro;
+import com.swpu.uchain.blog.enums.RoleEnum;
 import com.swpu.uchain.blog.form.LoginForm;
 import com.swpu.uchain.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(name = "用户登录", value = "/login")
-    public Object login(LoginForm loginForm, HttpServletResponse response) {
-        return userService.login(loginForm, response);
-    }
-
     @PostMapping(name = "用户注册", value = "/insert")
     public void insert() {
         //TODO 使用手机验证码实现用户注册
@@ -40,6 +37,7 @@ public class UserController {
         //TODO 使用手机验证码实现用户登录
     }
 
+    @RoleContro(role = RoleEnum.USER)
     @PostMapping(name = "修改个人信息", value = "/updateUser")
     public void updateUser() {
         //TODO 用户修改or完善个人信息

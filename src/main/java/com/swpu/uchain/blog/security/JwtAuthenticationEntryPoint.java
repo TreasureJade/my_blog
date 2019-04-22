@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @ClassName JwtAuthenticationEntryPoint
  * @Author hobo
  * @Date 19-4-22 下午7:19
- * @Description
+ * @Description 拦截器
  **/
 @Component
 @Slf4j

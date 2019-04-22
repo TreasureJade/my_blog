@@ -19,7 +19,7 @@ import java.io.IOException;
  * @ClassName JwtAuthenticationTokenFilter
  * @Author hobo
  * @Date 19-4-22 下午7:36
- * @Description
+ * @Description 拦截器
  **/
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {

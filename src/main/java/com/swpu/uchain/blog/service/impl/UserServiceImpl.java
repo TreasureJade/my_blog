@@ -11,7 +11,6 @@ import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.JwtTokenUtil;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import sun.security.util.Password;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @ClassName JwtUserDetailServiceImpl
  * @Author hobo
  * @Date 19-4-22 下午7:24
- * @Description
+ * @Description UserDetailService实现类
  **/
 @Service
 @Slf4j

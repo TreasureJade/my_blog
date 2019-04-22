@@ -1,10 +1,7 @@
 package com.swpu.uchain.blog.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
-@Data
 public class User implements Serializable {
     private Long id;
 
@@ -19,6 +16,8 @@ public class User implements Serializable {
     private String trueName;
 
     private String email;
+
+    private String birthday;
 
     private String headPortrait;
 
@@ -80,6 +79,14 @@ public class User implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday == null ? null : birthday.trim();
+    }
+
     public String getHeadPortrait() {
         return headPortrait;
     }
@@ -101,6 +108,7 @@ public class User implements Serializable {
         sb.append(", username=").append(username);
         sb.append(", trueName=").append(trueName);
         sb.append(", email=").append(email);
+        sb.append(", birthday=").append(birthday);
         sb.append(", headPortrait=").append(headPortrait);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

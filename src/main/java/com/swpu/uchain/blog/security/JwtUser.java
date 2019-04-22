@@ -10,7 +10,7 @@ import java.util.Collection;
  * @ClassName JwtUser
  * @Author hobo
  * @Date 19-4-22 下午3:48
- * @Description
+ * @Description  JWTUser配置类
  **/
 @Data
 public class JwtUser implements UserDetails {
