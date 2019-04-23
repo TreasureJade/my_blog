@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.uchain.blog.dao.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Article">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="digest" jdbcType="VARCHAR" property="digest"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="reading" jdbcType="BIGINT" property="reading"/>
+        <result column="comments" jdbcType="BIGINT" property="comments"/>
+        <result column="likes" jdbcType="BIGINT" property="likes"/>
+        <result column="tags_id" jdbcType="INTEGER" property="tagsId"/>
+        <result column="type_id" jdbcType="INTEGER" property="typeId"/>
+        <result column="article" jdbcType="LONGVARCHAR" property="article"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Article">
+    insert into article (id, digest, title, 
+      reading, comments, likes, 
+      tags_id, type_id, article
+      )
+    values (#{id,jdbcType=BIGINT}, #{digest,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{reading,jdbcType=BIGINT}, #{comments,jdbcType=BIGINT}, #{likes,jdbcType=BIGINT}, 
+      #{tagsId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{article,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Article">
+    update article
+    set digest = #{digest,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      reading = #{reading,jdbcType=BIGINT},
+      comments = #{comments,jdbcType=BIGINT},
+      likes = #{likes,jdbcType=BIGINT},
+      tags_id = #{tagsId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      article = #{article,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, digest, title, reading, comments, likes, tags_id, type_id, article
+    from article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, digest, title, reading, comments, likes, tags_id, type_id, article
+    from article
+  </select>
+    <select id="selectByArticleTitle" resultType="com.swpu.uchain.blog.entity.Article">
+    select id, digest, title, reading, comments, likes, tags_id, type_id, article
+    from article
+    where title=#{title}
+    </select>
+</mapper>

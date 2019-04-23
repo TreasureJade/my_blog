@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.swpu.uchain.blog.dao.TypesMapper" >
+  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Types" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type_msg" property="typeMsg" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from types
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Types" >
+    insert into types (id, type_msg, creat_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{typeMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Types" >
+    update types
+    set type_msg = #{typeMsg,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, type_msg, creat_time
+    from types
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, type_msg, creat_time
+    from types
+  </select>
+</mapper>
