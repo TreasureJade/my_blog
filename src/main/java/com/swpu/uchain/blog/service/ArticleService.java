@@ -63,13 +63,14 @@ public interface ArticleService {
      *
      * @param pageNum
      * @param pageSize
-     * @author hobo
      * @return com.swpu.uchain.blog.vo.ResultVO
+     * @author hobo
      */
     ResultVO selectAll(int pageNum, int pageSize);
 
     /**
      * 阅读量递增
+     *
      * @param id
      * @author hobo
      */

@@ -37,8 +37,15 @@ redis:
     #最大等待时间
     poolMaxWait: 500
 
+
 jwt:
   secret: test
   expiration: 1296000
   tokenStart: "Bearer "
   tokenName: Authorization
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  params: count=countSql
+  support-methods-arguments: true
