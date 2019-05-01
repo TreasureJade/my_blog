@@ -4,12 +4,15 @@
     <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Article">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="digest" jdbcType="VARCHAR" property="digest"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="reading" jdbcType="BIGINT" property="reading"/>
         <result column="comments" jdbcType="BIGINT" property="comments"/>
         <result column="likes" jdbcType="BIGINT" property="likes"/>
         <result column="tags_id" jdbcType="INTEGER" property="tagsId"/>
         <result column="type_id" jdbcType="INTEGER" property="typeId"/>
+        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="article" jdbcType="LONGVARCHAR" property="article"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -17,38 +20,46 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Article">
-    insert into article (id, digest, title, 
-      reading, comments, likes, 
-      tags_id, type_id, article
+    insert into article (id, digest, author, 
+      title, reading, comments, 
+      likes, tags_id, type_id, 
+      creat_time, update_time, article
       )
-    values (#{id,jdbcType=BIGINT}, #{digest,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{reading,jdbcType=BIGINT}, #{comments,jdbcType=BIGINT}, #{likes,jdbcType=BIGINT}, 
-      #{tagsId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{article,jdbcType=LONGVARCHAR}
+    values (#{id,jdbcType=BIGINT}, #{digest,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{reading,jdbcType=BIGINT}, #{comments,jdbcType=BIGINT}, 
+      #{likes,jdbcType=BIGINT}, #{tagsId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{article,jdbcType=LONGVARCHAR}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Article">
     update article
     set digest = #{digest,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       reading = #{reading,jdbcType=BIGINT},
       comments = #{comments,jdbcType=BIGINT},
       likes = #{likes,jdbcType=BIGINT},
       tags_id = #{tagsId,jdbcType=INTEGER},
       type_id = #{typeId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       article = #{article,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, digest, title, reading, comments, likes, tags_id, type_id, article
+    select id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time, 
+    update_time, article
     from article
     where id = #{id,jdbcType=BIGINT}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select id, digest, title, reading, comments, likes, tags_id, type_id, article
+    select id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time, 
+    update_time, article
     from article
   </select>
     <select id="selectByArticleTitle" resultType="com.swpu.uchain.blog.entity.Article">
-    select id, digest, title, reading, comments, likes, tags_id, type_id, article
+    select id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
+    update_time, article
     from article
     where title=#{title}
     </select>

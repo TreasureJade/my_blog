@@ -1,11 +1,14 @@
 package com.swpu.uchain.blog.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Article implements Serializable {
     private Long id;
 
     private String digest;
+
+    private String author;
 
     private String title;
 
@@ -18,6 +21,10 @@ public class Article implements Serializable {
     private Integer tagsId;
 
     private Integer typeId;
+
+    private Date creatTime;
+
+    private Date updateTime;
 
     private String article;
 
@@ -37,6 +44,14 @@ public class Article implements Serializable {
 
     public void setDigest(String digest) {
         this.digest = digest == null ? null : digest.trim();
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author == null ? null : author.trim();
     }
 
     public String getTitle() {
@@ -87,6 +102,22 @@ public class Article implements Serializable {
         this.typeId = typeId;
     }
 
+    public Date getCreatTime() {
+        return creatTime;
+    }
+
+    public void setCreatTime(Date creatTime) {
+        this.creatTime = creatTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public String getArticle() {
         return article;
     }
@@ -103,12 +134,15 @@ public class Article implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", digest=").append(digest);
+        sb.append(", author=").append(author);
         sb.append(", title=").append(title);
         sb.append(", reading=").append(reading);
         sb.append(", comments=").append(comments);
         sb.append(", likes=").append(likes);
         sb.append(", tagsId=").append(tagsId);
         sb.append(", typeId=").append(typeId);
+        sb.append(", creatTime=").append(creatTime);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", article=").append(article);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

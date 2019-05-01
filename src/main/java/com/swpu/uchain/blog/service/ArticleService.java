@@ -45,17 +45,33 @@ public interface ArticleService {
      * 修改一篇博客
      *
      * @param article
-     * @author hobo
      * @return com.swpu.uchain.blog.vo.ResultVO
+     * @author hobo
      */
     ResultVO updateArticle(Article article);
 
     /**
      * 删除一篇博客
      *
-     * @param article
+     * @param id
      * @return
      */
-    ResultVO deleteArticle(Article article);
+    ResultVO deleteArticle(Long id);
 
+    /**
+     * 分页显示博客
+     *
+     * @param pageNum
+     * @param pageSize
+     * @author hobo
+     * @return com.swpu.uchain.blog.vo.ResultVO
+     */
+    ResultVO selectAll(int pageNum, int pageSize);
+
+    /**
+     * 阅读量递增
+     * @param id
+     * @author hobo
+     */
+    void addReading(Long id);
 }
