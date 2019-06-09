@@ -1,6 +1,7 @@
 package com.swpu.uchain.blog.dao;
 
 import com.swpu.uchain.blog.entity.User;
+
 import java.util.List;
 
 public interface UserMapper {

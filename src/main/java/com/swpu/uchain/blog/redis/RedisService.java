@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Jedis;
@@ -18,8 +19,13 @@ import java.util.List;
  **/
 @Service
 public class RedisService {
-    @Autowired
-    JedisPool jedisPool;
+
+    private JedisPool jedisPool;
+
+    @Bean
+    public JedisPool jedisPool() {
+        return jedisPool;
+    }
 
     /**
      * 清空缓存数据

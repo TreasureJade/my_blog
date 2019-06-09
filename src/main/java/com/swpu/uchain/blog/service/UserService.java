@@ -2,6 +2,7 @@ package com.swpu.uchain.blog.service;
 
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.form.LoginForm;
+import com.swpu.uchain.blog.form.UserInsertForm;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +20,7 @@ public interface UserService {
      * @return User
      * @author hobo
      */
-    public User getUserByPhoneNum(String phoneNumber);
+    User getUserByPhoneNum(String phoneNumber);
 
     /**
      * 通过token解析用户
@@ -27,7 +28,7 @@ public interface UserService {
      * @return User
      * @author hobo
      */
-    public User getCurrentUser();
+    User getCurrentUser();
 
     /***
      * 用户登录
@@ -36,5 +37,7 @@ public interface UserService {
      * @author hobo
      * @return java.lang.Object
      */
-    public Object login(LoginForm loginForm, HttpServletResponse response);
+    Object login(LoginForm loginForm, HttpServletResponse response);
+
+    void insertUser(UserInsertForm insertForm);
 }

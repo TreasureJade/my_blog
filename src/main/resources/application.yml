@@ -18,24 +18,22 @@ spring:
       # 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
 
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 10
+    jedis:
+      pool:
+        max-active: 1000
+        max-idle: 500
+        max-wait: 500
+
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: com.swpu.uchain.blog.entity
   configuration:
     map-underscore-to-camel-case: true
     use-generated-keys: true
-
-redis:
-  host: localhost
-    port: 6379
-    #超时时间
-    timeout: 10
-    #最大连接数
-    poolMaxTotal: 1000
-    #最大空闲连接数
-    poolMaxIdle: 500
-    #最大等待时间
-    poolMaxWait: 500
 
 
 jwt:
@@ -49,3 +47,9 @@ pagehelper:
   reasonable: true
   params: count=countSql
   support-methods-arguments: true
+
+aliyun:
+  accessKeyId: "LTAI000VKxqr7mn8"
+  accessKeySecret: "CTC04KIVZQrwvJNO5E7J2mboGae1pA"
+  insertTemplate: "SMS_166655049"
+  updatePWTemplate: "SMS_166665985"

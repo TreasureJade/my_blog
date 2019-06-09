@@ -5,6 +5,7 @@ import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
 import com.swpu.uchain.blog.form.LoginForm;
+import com.swpu.uchain.blog.form.UserInsertForm;
 import com.swpu.uchain.blog.security.JwtProperties;
 import com.swpu.uchain.blog.security.JwtUserDetailServiceImpl;
 import com.swpu.uchain.blog.service.UserService;
@@ -97,5 +98,10 @@ public class UserServiceImpl implements UserService {
         map.put("role", user.getRole());
         map.put("token", realToken);
         return ResultVOUtil.success(map);
+    }
+
+    @Override
+    public void insertUser(UserInsertForm insertForm) {
+        //TODO 调用阿里云短信验证方法
     }
 }
