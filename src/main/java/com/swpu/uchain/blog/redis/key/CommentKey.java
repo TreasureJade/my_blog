@@ -10,6 +10,5 @@ public class CommentKey extends BasePrefix{
     public CommentKey(int expireSeconds, String prefix) {
         super(expireSeconds, prefix);
     }
-    public static CommentKey commentKey = new CommentKey(360,"commentId");
-    public static CommentKey replyKey = new CommentKey(360,"replyId");
+    public static CommentKey commentKey = new CommentKey(360,"blogId");
 }

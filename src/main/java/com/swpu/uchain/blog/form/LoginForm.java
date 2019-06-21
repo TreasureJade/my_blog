@@ -20,7 +20,8 @@ public class LoginForm {
     private String phoneNum;
 
 
-    @NotNull(message = "密码")
+    @NotNull(message = "密码不能为空")
+    @ApiModelProperty("密码")
     private String password;
 
 }

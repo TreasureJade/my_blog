@@ -6,33 +6,45 @@
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="blog_id" property="blogId" jdbcType="BIGINT" />
     <result column="comment_msg" property="commentMsg" jdbcType="VARCHAR" />
-    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="VARCHAR" />
+    <result column="reply_user_id" property="replyUserId" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from comment
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Comment" >
-    insert into comment (id, user_id, blog_id, 
-      comment_msg, creat_time)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{blogId,jdbcType=BIGINT}, 
-      #{commentMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP})
+    insert into comment (id, user_id, blog_id,
+      comment_msg, creat_time, reply_user_id,
+      pid)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{blogId,jdbcType=BIGINT},
+      #{commentMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}, #{replyUserId,jdbcType=BIGINT},
+      #{pid,jdbcType=BIGINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Comment" >
     update comment
     set user_id = #{userId,jdbcType=BIGINT},
       blog_id = #{blogId,jdbcType=BIGINT},
       comment_msg = #{commentMsg,jdbcType=VARCHAR},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+      creat_time = #{creatTime,jdbcType=VARCHAR},
+      reply_user_id = #{replyUserId,jdbcType=BIGINT},
+      pid = #{pid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, user_id, blog_id, comment_msg, creat_time
+    select id, user_id, blog_id, comment_msg, creat_time, reply_user_id, pid
     from comment
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, user_id, blog_id, comment_msg, creat_time
+    select id, user_id, blog_id, comment_msg, creat_time, reply_user_id, pid
     from comment
   </select>
+  <select id="selectCommentByPid" resultType="com.swpu.uchain.blog.entity.Comment">
+    select id, user_id, blog_id, comment_msg, creat_time, reply_user_id, pid
+    from comment
+    where pid = #{pid}
+  </select>
+
 </mapper>

@@ -1,7 +1,6 @@
 package com.swpu.uchain.blog.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Comment implements Serializable {
     private Long id;
@@ -12,7 +11,11 @@ public class Comment implements Serializable {
 
     private String commentMsg;
 
-    private Date creatTime;
+    private String creatTime;
+
+    private Long replyUserId;
+
+    private Long pid = 0L;
 
     private static final long serialVersionUID = 1L;
 
@@ -48,12 +51,28 @@ public class Comment implements Serializable {
         this.commentMsg = commentMsg == null ? null : commentMsg.trim();
     }
 
-    public Date getCreatTime() {
+    public String getCreatTime() {
         return creatTime;
     }
 
-    public void setCreatTime(Date creatTime) {
+    public void setCreatTime(String creatTime) {
         this.creatTime = creatTime;
+    }
+
+    public Long getReplyUserId() {
+        return replyUserId;
+    }
+
+    public void setReplyUserId(Long replyUserId) {
+        this.replyUserId = replyUserId;
+    }
+
+    public Long getPid() {
+        return pid;
+    }
+
+    public void setPid(Long pid) {
+        this.pid = pid;
     }
 
     @Override
@@ -67,6 +86,8 @@ public class Comment implements Serializable {
         sb.append(", blogId=").append(blogId);
         sb.append(", commentMsg=").append(commentMsg);
         sb.append(", creatTime=").append(creatTime);
+        sb.append(", replyUserId=").append(replyUserId);
+        sb.append(", pid=").append(pid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
