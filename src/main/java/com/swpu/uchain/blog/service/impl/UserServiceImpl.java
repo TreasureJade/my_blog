@@ -1,16 +1,23 @@
 package com.swpu.uchain.blog.service.impl;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.swpu.uchain.blog.dao.UserMapper;
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
+import com.swpu.uchain.blog.enums.TemplateCodeEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
 import com.swpu.uchain.blog.form.LoginForm;
+import com.swpu.uchain.blog.form.UserInsertForm;
+import com.swpu.uchain.blog.redis.RedisService;
+import com.swpu.uchain.blog.redis.key.PhoneCodeKey;
 import com.swpu.uchain.blog.security.JwtProperties;
 import com.swpu.uchain.blog.security.JwtUserDetailServiceImpl;
 import com.swpu.uchain.blog.service.UserService;
+import com.swpu.uchain.blog.util.AliyunSmsUtils;
 import com.swpu.uchain.blog.util.JwtTokenUtil;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,6 +64,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtUserDetailServiceImpl jwtUserDetailService;
 
+    @Autowired
+    private RedisService redisService;
+
+
+    @Override
+    public boolean insert(User user) {
+        return (userMapper.insert(user) == 1);
+    }
 
     @Override
     public User getUserByPhoneNum(String phoneNumber) {
@@ -98,4 +113,37 @@ public class UserServiceImpl implements UserService {
         map.put("token", realToken);
         return ResultVOUtil.success(map);
     }
+
+    @Override
+    public Object insertUser(UserInsertForm userInsertForm) {
+        String code = redisService.get(PhoneCodeKey.phoneCodeKey, userInsertForm.getPhoneNumber(), String.class);
+        if (!code.equals(userInsertForm.getCode())) {
+            throw new GlobalException(ResultEnum.PHONE_CODE_ERROR);
+        }
+        String password = userInsertForm.getPassword();
+        password = new BCryptPasswordEncoder().encode(password);
+        userInsertForm.setPassword(password);
+        User user = new User();
+        BeanUtils.copyProperties(userInsertForm, user);
+        user.setRole(1);
+        if (insert(user)) {
+            return ResultVOUtil.success();
+        }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+    }
+
+    @Override
+    public Object getValidationCode(String phoneNumber) {
+        String code = AliyunSmsUtils.setCode();
+        try {
+            AliyunSmsUtils.sendInsertUserMsg(phoneNumber, code, TemplateCodeEnum.INSERTUSER.getValue());
+            redisService.set(PhoneCodeKey.phoneCodeKey, phoneNumber, code);
+            return ResultVOUtil.success(code);
+        } catch (ClientException e) {
+            log.info("失败原因: {}", e.getMessage());
+            return ResultVOUtil.error(ResultEnum.PHONE_CODE_SEND_ERROR);
+        }
+    }
+
 }
+

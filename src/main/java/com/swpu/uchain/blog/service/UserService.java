@@ -2,6 +2,7 @@ package com.swpu.uchain.blog.service;
 
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.form.LoginForm;
+import com.swpu.uchain.blog.form.UserInsertForm;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface UserService {
 
+    boolean insert(User user);
+
     /**
      * 根据手机号码查询用户
      *
@@ -19,7 +22,7 @@ public interface UserService {
      * @return User
      * @author hobo
      */
-    public User getUserByPhoneNum(String phoneNumber);
+    User getUserByPhoneNum(String phoneNumber);
 
     /**
      * 通过token解析用户
@@ -27,14 +30,29 @@ public interface UserService {
      * @return User
      * @author hobo
      */
-    public User getCurrentUser();
+    User getCurrentUser();
 
-    /***
+    /**
      * 用户登录
      * @param loginForm
      * @param response
      * @author hobo
      * @return java.lang.Object
      */
-    public Object login(LoginForm loginForm, HttpServletResponse response);
+    Object login(LoginForm loginForm, HttpServletResponse response);
+
+    /**
+     * 用户注册
+     *
+     * @param userInsertForm
+     * @return java.lang.Object
+     */
+    Object insertUser(UserInsertForm userInsertForm);
+
+    /**
+     *
+     * @param phoneNumber
+     * @return java.lang.Object
+     */
+    Object getValidationCode(String phoneNumber);
 }
