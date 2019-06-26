@@ -75,4 +75,10 @@ public interface ArticleService {
      * @author hobo
      */
     void addReading(Long id);
+
+    /**
+     * 获取博客详情
+     * @return
+     */
+    ResultVO selectArticleDetail(Long blogId);
 }

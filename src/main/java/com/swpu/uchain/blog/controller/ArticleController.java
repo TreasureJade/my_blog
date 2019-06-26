@@ -1,6 +1,8 @@
 package com.swpu.uchain.blog.controller;
 
+import com.swpu.uchain.blog.service.ArticleService;
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/article")
 @Api(tags = "文章管理接口")
 public class ArticleController {
+
+    @Autowired
+    private ArticleService articleService;
+
+    @PostMapping(name = "获取文章详情", value = "/getDetail")
+    public Object getDetail(Long blogId) {
+        return articleService.selectArticleDetail(blogId);
+    }
 
     @PostMapping(name = "上传文章", value = "/insertArticle")
     public void insertArticle() {

@@ -2,7 +2,10 @@ package com.swpu.uchain.blog.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.swpu.uchain.blog.dao.ArticleMapper;
+import com.swpu.uchain.blog.dao.CommentMapper;
+import com.swpu.uchain.blog.dto.ArticleDTO;
 import com.swpu.uchain.blog.entity.Article;
+import com.swpu.uchain.blog.entity.Comment;
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
@@ -13,6 +16,7 @@ import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +34,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Autowired
     private UserService userService;
@@ -120,5 +127,18 @@ public class ArticleServiceImpl implements ArticleService {
         if (!update(article)) {
             throw new GlobalException(ResultEnum.ADD_READINGS_ERROR);
         }
+    }
+
+    @Override
+    public ResultVO selectArticleDetail(Long blogId) {
+        Article article = articleMapper.selectByPrimaryKey(blogId);
+        if (article == null) {
+            return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
+        }
+        List<Comment> commentList = commentMapper.getCommentByBlogIdAndPid(blogId);
+        ArticleDTO articleDTO = new ArticleDTO();
+        BeanUtils.copyProperties(article, articleDTO);
+        articleDTO.setCommentList(commentList);
+        return ResultVOUtil.success(articleDTO);
     }
 }
