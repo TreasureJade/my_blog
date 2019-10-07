@@ -3,6 +3,7 @@ package com.swpu.uchain.blog.dto;
 import com.swpu.uchain.blog.entity.Comment;
 import com.swpu.uchain.blog.entity.Tags;
 import com.swpu.uchain.blog.entity.Types;
+import com.swpu.uchain.blog.vo.CommentVO;
 import lombok.Data;
 
 import java.util.Date;
@@ -69,5 +70,5 @@ public class ArticleDTO {
     /**
      * 文章所有评论
      */
-    private List<Comment> commentList;
+    private List<CommentVO> commentList;
 }

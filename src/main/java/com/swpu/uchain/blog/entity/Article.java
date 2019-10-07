@@ -1,7 +1,6 @@
 package com.swpu.uchain.blog.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Article implements Serializable {
     private Long id;
@@ -12,19 +11,19 @@ public class Article implements Serializable {
 
     private String title;
 
-    private Long reading;
+    private Long reading = 0L;
 
-    private Long comments;
+    private Long comments = 0L;
 
-    private Long likes;
+    private Long likes = 0L;
 
     private Integer tagsId;
 
     private Integer typeId;
 
-    private Date creatTime;
+    private String creatTime;
 
-    private Date updateTime;
+    private String updateTime;
 
     private String article;
 
@@ -102,20 +101,20 @@ public class Article implements Serializable {
         this.typeId = typeId;
     }
 
-    public Date getCreatTime() {
+    public String getCreatTime() {
         return creatTime;
     }
 
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+    public void setCreatTime(String creatTime) {
+        this.creatTime = creatTime == null ? null : creatTime.trim();
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
     }
 
     public String getArticle() {

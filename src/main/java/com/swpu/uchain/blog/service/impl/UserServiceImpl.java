@@ -19,6 +19,7 @@ import com.swpu.uchain.blog.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -42,6 +43,9 @@ import java.util.Map;
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+
+    @Value("${file.headPic}")
+    private  String headPicPath;
 
     @Autowired
     private UserMapper userMapper;
@@ -71,6 +75,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean insert(User user) {
         return (userMapper.insert(user) == 1);
+    }
+
+    @Override
+    public User selectByUserId(Long  userId) {
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
@@ -126,6 +135,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userInsertForm, user);
         user.setRole(1);
+        user.setHeadPortrait(headPicPath);
         if (insert(user)) {
             return ResultVOUtil.success();
         }

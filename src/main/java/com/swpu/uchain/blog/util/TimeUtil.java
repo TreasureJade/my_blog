@@ -32,16 +32,5 @@ public class TimeUtil {
         return format.format(date);
     }
 
-    /**
-     * 将时间格式转换为微信支付所需格式
-     *
-     * @return java.lang.String
-     * @author hobo
-     */
-    public static String getWxpayTime() {
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        return format.format(date);
-    }
 
 }

@@ -2,18 +2,20 @@ package com.swpu.uchain.blog.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.swpu.uchain.blog.dao.ArticleMapper;
-import com.swpu.uchain.blog.dao.CommentMapper;
 import com.swpu.uchain.blog.dto.ArticleDTO;
 import com.swpu.uchain.blog.entity.Article;
-import com.swpu.uchain.blog.entity.Comment;
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
+import com.swpu.uchain.blog.form.CreatArticleForm;
 import com.swpu.uchain.blog.redis.RedisService;
 import com.swpu.uchain.blog.redis.key.ArticleKey;
 import com.swpu.uchain.blog.service.ArticleService;
+import com.swpu.uchain.blog.service.CommentService;
 import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
+import com.swpu.uchain.blog.util.TimeUtil;
+import com.swpu.uchain.blog.vo.CommentVO;
 import com.swpu.uchain.blog.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentService commentService;
 
     @Autowired
     private UserService userService;
@@ -73,10 +75,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResultVO insertArticle(Article article) {
+    public ResultVO insertArticle(CreatArticleForm form) {
+        Article article = new Article();
+        BeanUtils.copyProperties(form,article);
         if (findArticleByTitle(article.getTitle()) != null) {
             return ResultVOUtil.error(ResultEnum.ARTICLE_TITLE_EXIST);
         }
+        article.setCreatTime(TimeUtil.getTimeCN());
         if (insert(article)) {
             return ResultVOUtil.success(article);
         }
@@ -119,10 +124,6 @@ public class ArticleServiceImpl implements ArticleService {
             throw new GlobalException(ResultEnum.ARTICLE_NOT_EXIST);
         }
         //判断读取文章的是否作者本人
-        User user = userService.getCurrentUser();
-        if (user.getUsername().equals(article.getAuthor())) {
-            return;
-        }
         article.setReading(article.getReading() + 1);
         if (!update(article)) {
             throw new GlobalException(ResultEnum.ADD_READINGS_ERROR);
@@ -135,10 +136,12 @@ public class ArticleServiceImpl implements ArticleService {
         if (article == null) {
             return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
         }
-        List<Comment> commentList = commentMapper.getCommentByBlogIdAndPid(blogId);
+        List<CommentVO> commentList = commentService.getAllCommentByBlogId(blogId);
         ArticleDTO articleDTO = new ArticleDTO();
         BeanUtils.copyProperties(article, articleDTO);
         articleDTO.setCommentList(commentList);
+        // 阅读量 +1
+        addReading(blogId);
         return ResultVOUtil.success(articleDTO);
     }
 }

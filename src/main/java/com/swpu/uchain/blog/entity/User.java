@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 @Data
 public class User implements Serializable {
-    private Long id;
+    private Long userId;
 
     private String phoneNumber;
 
@@ -25,12 +25,12 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPhoneNumber() {
@@ -103,7 +103,7 @@ public class User implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
+        sb.append(", userId=").append(userId);
         sb.append(", phoneNumber=").append(phoneNumber);
         sb.append(", password=").append(password);
         sb.append(", role=").append(role);

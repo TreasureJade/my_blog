@@ -1,11 +1,17 @@
 package com.swpu.uchain.blog.controller;
 
+import com.swpu.uchain.blog.form.CreatArticleForm;
 import com.swpu.uchain.blog.service.ArticleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @ClassName ArticleController
@@ -21,16 +27,20 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @ApiOperation("获取文章详情")
     @PostMapping(name = "获取文章详情", value = "/getDetail")
     public Object getDetail(Long blogId) {
         return articleService.selectArticleDetail(blogId);
     }
 
+    @ApiOperation("上传文章")
     @PostMapping(name = "上传文章", value = "/insertArticle")
-    public void insertArticle() {
+    public Object insertArticle(@Valid CreatArticleForm form) {
+        return articleService.insertArticle(form);
     }
 
-    @PostMapping(name = "删除文章", value = "/deleteArticle")
+    @ApiOperation("删除文章")
+    @GetMapping(name = "删除文章", value = "/deleteArticle")
     public void deleteArticle() {
     }
 

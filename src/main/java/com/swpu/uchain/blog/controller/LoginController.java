@@ -4,6 +4,8 @@ import com.swpu.uchain.blog.form.LoginForm;
 import com.swpu.uchain.blog.form.UserInsertForm;
 import com.swpu.uchain.blog.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,17 +26,21 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation("用户注册")
     @PostMapping(name = "用户注册", value = "/insert")
     public Object insert(UserInsertForm userInsertForm){
         return userService.insertUser(userInsertForm);
     }
 
+    @ApiOperation("用户登录")
     @PostMapping(name = "用户登录", value = "/login")
     public Object login(LoginForm loginForm, HttpServletResponse response) {
         return userService.login(loginForm, response);
     }
 
+    @ApiOperation("获取验证码")
     @PostMapping(name = "获取验证码",value = "/getCode")
+    @ApiImplicitParam(name = "phoneNumber",value = "手机号码")
     public Object getValidationCode(String phoneNumber) {
         return userService.getValidationCode(phoneNumber);
     }

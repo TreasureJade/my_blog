@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName UserController
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @RestController
 @RequestMapping("/user")
-@Api(tags = "用户接口")
+@Api(tags = "用户接口 ")
 public class UserController {
 
     @Autowired

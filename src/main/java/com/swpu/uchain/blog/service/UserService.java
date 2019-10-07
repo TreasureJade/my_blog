@@ -16,6 +16,14 @@ public interface UserService {
     boolean insert(User user);
 
     /**
+     * 根据id查询用户
+     *
+     * @param userId
+     * @return
+     */
+    User selectByUserId(Long  userId);
+
+    /**
      * 根据手机号码查询用户
      *
      * @param phoneNumber

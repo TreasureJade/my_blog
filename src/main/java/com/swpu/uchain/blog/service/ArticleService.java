@@ -1,6 +1,7 @@
 package com.swpu.uchain.blog.service;
 
 import com.swpu.uchain.blog.entity.Article;
+import com.swpu.uchain.blog.form.CreatArticleForm;
 import com.swpu.uchain.blog.vo.ResultVO;
 
 public interface ArticleService {
@@ -35,11 +36,11 @@ public interface ArticleService {
     /**
      * 上传一篇博客
      *
-     * @param article
+     * @param form
      * @return java.lang.Object
      * @author hobo
      */
-    ResultVO insertArticle(Article article);
+    ResultVO insertArticle(CreatArticleForm form);
 
     /**
      * 修改一篇博客

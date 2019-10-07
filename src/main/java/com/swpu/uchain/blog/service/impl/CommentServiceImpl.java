@@ -6,19 +6,20 @@ import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.entity.Comment;
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
-import com.swpu.uchain.blog.redis.RedisService;
-import com.swpu.uchain.blog.redis.key.CommentKey;
-import com.swpu.uchain.blog.service.ArticleService;
+import com.swpu.uchain.blog.form.CreatCommentForm;
 import com.swpu.uchain.blog.service.CommentService;
 import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.util.TimeUtil;
+import com.swpu.uchain.blog.vo.CommentVO;
+import com.swpu.uchain.blog.vo.ReplyVO;
 import com.swpu.uchain.blog.vo.ResultVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hobo
@@ -27,79 +28,74 @@ import java.util.Date;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-
-    @Autowired
-    private ArticleMapper articleMapper;
-
     @Autowired
     private CommentMapper commentMapper;
 
     @Autowired
-    private RedisService redisService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private ArticleMapper articleMapper;
+
 
     @Override
     public boolean insert(Comment comment) {
-        if (commentMapper.insert(comment) == 1) {
-            redisService.set(CommentKey.commentKey, comment.getBlogId() + "", comment);
-            return true;
-        }
-        return false;
+        return commentMapper.insert(comment) == 1;
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean delete(Long id) {
-        redisService.delete(CommentKey.commentKey, id + "");
-        return (commentMapper.deleteByPrimaryKey(id) == 1);
+        return commentMapper.deleteByPrimaryKey(id) == 1;
     }
 
     @Override
-    public ResultVO creatComment(Long blogId, String commentMsg) {
+    public ResultVO creatComment(CreatCommentForm form) {
+        Comment comment = new Comment();
+        BeanUtils.copyProperties(form, comment);
+        if (comment.getReplyUserId() == null) {
+            comment.setReplyUserId(0L);
+        }
         User user = userService.getCurrentUser();
         if (user == null) {
-            return ResultVOUtil.error(ResultEnum.AUTHENTICATION_ERROR);
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
         }
-        Article article = articleMapper.selectByPrimaryKey(blogId);
-        if (article == null) {
-            return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
-        }
-        Comment comment = new Comment();
-        comment.setUserId(user.getId());
-        comment.setBlogId(article.getId());
-        comment.setCommentMsg(commentMsg);
-        comment.setCreatTime(TimeUtil.getNowTime());
+        comment.setUserId(user.getUserId());
+        comment.setCreatTime(TimeUtil.getTimeCN());
+
         if (insert(comment)) {
+            // 评论数目加1
+            addComments(comment.getBlogId());
             return ResultVOUtil.success(comment);
         }
         return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
     }
 
-    @Override
-    public ResultVO replyComment(Long blogId, Long commentId, Long replyId, String commentMsg) {
-        User user = userService.getCurrentUser();
-        if (user == null) {
-            return ResultVOUtil.error(ResultEnum.AUTHENTICATION_ERROR);
-        }
+    private void addComments(Long blogId) {
         Article article = articleMapper.selectByPrimaryKey(blogId);
-        if (article == null) {
-            return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
-        }
-        Comment comment = new Comment();
-        comment.setBlogId(article.getId());
-        comment.setCreatTime(TimeUtil.getNowTime());
-        comment.setCommentMsg(commentMsg);
-        if (replyId != null) {
-            Comment replyComment = commentMapper.selectByPrimaryKey(replyId);
-            comment.setUserId(user.getId());
-            comment.setReplyUserId(replyComment.getUserId());
-            comment.setPid(replyComment.getId());
-        }
-        if (insert(comment)) {
-            return ResultVOUtil.success(comment);
-        }
-        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+        article.setComments(article.getComments() + 1);
+        articleMapper.updateByPrimaryKey(article);
     }
+
+    @Override
+    public List<CommentVO> getAllCommentByBlogId(Long blogId) {
+        List<CommentVO> result = new ArrayList<>();
+        // 查找文章下所有的父级评论
+        List<Long> commentIdList = commentMapper.getCommentIdByBlogId(blogId);
+        for (Long commentId : commentIdList) {
+            CommentVO vo = commentMapper.selectCommentById(commentId);
+            //查找所有父级评论下的子评论
+            List<ReplyVO> vos = commentMapper.selectByPid(vo.getCommentId());
+            List<ReplyVO> reply = new ArrayList<>();
+            for (ReplyVO replyVO : vos) {
+                User user = userService.selectByUserId(replyVO.getReplyUserId());
+                replyVO.setReplyUserName(user.getUsername());
+                reply.add(replyVO);
+            }
+            vo.setReplyVO(reply);
+            result.add(vo);
+        }
+        return result;
+    }
+
+
 }

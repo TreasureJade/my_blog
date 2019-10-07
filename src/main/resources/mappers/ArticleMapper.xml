@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swpu.uchain.blog.dao.ArticleMapper">
-    <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Article">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="digest" jdbcType="VARCHAR" property="digest"/>
-        <result column="author" jdbcType="VARCHAR" property="author"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="reading" jdbcType="BIGINT" property="reading"/>
-        <result column="comments" jdbcType="BIGINT" property="comments"/>
-        <result column="likes" jdbcType="BIGINT" property="likes"/>
-        <result column="tags_id" jdbcType="INTEGER" property="tagsId"/>
-        <result column="type_id" jdbcType="INTEGER" property="typeId"/>
-        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="article" jdbcType="LONGVARCHAR" property="article"/>
-    </resultMap>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Article">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="reading" jdbcType="BIGINT" property="reading" />
+    <result column="comments" jdbcType="BIGINT" property="comments" />
+    <result column="likes" jdbcType="BIGINT" property="likes" />
+    <result column="tags_id" jdbcType="INTEGER" property="tagsId" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="creat_time" jdbcType="VARCHAR" property="creatTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="article" jdbcType="LONGVARCHAR" property="article" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from article
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Article">
+  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Article">
     insert into article (id, digest, author, 
       title, reading, comments, 
       likes, tags_id, type_id, 
@@ -28,10 +28,10 @@
     values (#{id,jdbcType=BIGINT}, #{digest,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{reading,jdbcType=BIGINT}, #{comments,jdbcType=BIGINT}, 
       #{likes,jdbcType=BIGINT}, #{tagsId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
-      #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{article,jdbcType=LONGVARCHAR}
+      #{creatTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{article,jdbcType=LONGVARCHAR}
       )
   </insert>
-    <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Article">
+  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Article">
     update article
     set digest = #{digest,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
@@ -41,18 +41,18 @@
       likes = #{likes,jdbcType=BIGINT},
       tags_id = #{tagsId,jdbcType=INTEGER},
       type_id = #{typeId,jdbcType=INTEGER},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      creat_time = #{creatTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
       article = #{article,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time, 
     update_time, article
     from article
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time, 
     update_time, article
     from article

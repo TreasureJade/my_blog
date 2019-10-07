@@ -17,6 +17,10 @@ spring:
       time-between-eviction-runs-millis: 60000
       # 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
+  thymeleaf:
+    encoding: UTF-8
+    cache: false
+    mode: HTML5
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
@@ -24,10 +28,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     use-generated-keys: true
-
 #redis
 redis:
-  host: localhost
+  host: 49.234.63.223
   port: 6379
   #超时时间
   timeout: 10
@@ -37,6 +40,7 @@ redis:
   poolMaxIdle: 500
   #最大等待时间
   poolMaxWait: 500
+  password: "cins1108"
 
 
 jwt:
@@ -44,6 +48,9 @@ jwt:
   expiration: 1296000
   tokenStart: "Bearer "
   tokenName: Authorization
+
+file:
+  headPic: "/home/hobo/head-pic/defult.jpeg"
 
 pagehelper:
   helper-dialect: mysql

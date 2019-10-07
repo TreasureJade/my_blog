@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swpu.uchain.blog.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.User">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="role" jdbcType="INTEGER" property="role" />
@@ -10,20 +10,20 @@
     <result column="true_name" jdbcType="VARCHAR" property="trueName" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="birthday" jdbcType="VARCHAR" property="birthday" />
-    <result column="head_portrait" jdbcType="LONGVARCHAR" property="headPortrait" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
-    where id = #{id,jdbcType=BIGINT}
+    where commentId = #{commentId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.swpu.uchain.blog.entity.User">
-    insert into user (id, phone_number, `password`, 
+    insert into user (user_id, phone_number, `password`,
       `role`, username, true_name, 
       email, birthday, head_portrait
       )
-    values (#{id,jdbcType=BIGINT}, #{phoneNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=BIGINT}, #{phoneNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{role,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{headPortrait,jdbcType=LONGVARCHAR}
+      #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.User">
@@ -35,22 +35,22 @@
       true_name = #{trueName,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=VARCHAR},
-      head_portrait = #{headPortrait,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+      head_portrait = #{headPortrait,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, phone_number, `password`, `role`, username, true_name, email, birthday, 
+    select user_id, phone_number, `password`, `role`, username, true_name, email, birthday,
     head_portrait
     from user
-    where id = #{id,jdbcType=BIGINT}
+    where userId = #{commentId,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, phone_number, `password`, `role`, username, true_name, email, birthday, 
+    select user_id, phone_number, `password`, `role`, username, true_name, email, birthday,
     head_portrait
     from user
   </select>
   <select id="getUserByPhone" resultType="com.swpu.uchain.blog.entity.User">
-    select id, phone_number, `password`, `role`, username, true_name, email, birthday,
+    select user_id, phone_number, `password`, `role`, username, true_name, email, birthday,
     head_portrait
     from user
     where phone_number=#{phoneNumber}

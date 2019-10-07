@@ -21,8 +21,8 @@ public class AliyunSmsUtils {
     private static final String PRODUCT = "Dysmsapi";
     private static final String DOMAIN = "dysmsapi.aliyuncs.com";
 
-    private static final String ACCESS_KEY_ID = "YOUR KEY ID";
-    private static final String ACCESS_KEY_SECRET = "YOUR KEY SECRET";
+    private static final String ACCESS_KEY_ID = "LTAIOqY6ewyldbO7";
+    private static final String ACCESS_KEY_SECRET = "tO28iD4zgRBwnAGw3h87uoi0kgr3oq";
 
     public static boolean sendInsertUserMsg(String telephone, String code,String templateCode) throws ClientException {
 

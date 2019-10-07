@@ -30,7 +30,7 @@ public enum ResultEnum {
     REQUEST_METHOD_ERROR(550, "不支持%s的请求方式"),
 
 
-    ;
+    USER_NOT_LOGIN(13,"用户未登录");
     private Integer code;
 
     private String msg;
