@@ -2,13 +2,15 @@ package com.swpu.uchain.blog.controller;
 
 import com.swpu.uchain.blog.accessctro.RoleContro;
 import com.swpu.uchain.blog.enums.RoleEnum;
+import com.swpu.uchain.blog.form.UpdatePwForm;
+import com.swpu.uchain.blog.form.UpdateUserForm;
 import com.swpu.uchain.blog.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -25,20 +27,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation("用户修改密码")
     @PostMapping(name = "用户修改密码", value = "/updatePw")
-    public void updatePw() {
-        //TODO 使用手机验证码实现用户登录
+    public Object updatePw(UpdatePwForm form) {
+        return userService.updatePw(form);
     }
 
-    @RoleContro(role = RoleEnum.USER)
+    @ApiOperation("用户查看个人信息")
+    @GetMapping(name = "用户查看个人信息", value = "/getOwnerMsg")
+    public Object getOwnerMsg() {
+        return userService.getOwnerMsg();
+    }
+
+    @ApiOperation("修改个人信息")
     @PostMapping(name = "修改个人信息", value = "/updateUser")
-    public void updateUser() {
-        //TODO 用户修改or完善个人信息
-    }
-
-    @PostMapping(name = "修改登录手机号码", value = "/updatePhone")
-    public void updatePhone() {
-        //TODO 使用手机验证码修改登录账号
+    public Object updateUser(UpdateUserForm form,@RequestParam("头像图片") MultipartFile file) {
+        return userService.updateUser(form,file);
     }
 
 
