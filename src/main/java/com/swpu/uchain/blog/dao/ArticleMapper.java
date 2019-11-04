@@ -1,6 +1,8 @@
 package com.swpu.uchain.blog.dao;
 
 import com.swpu.uchain.blog.entity.Article;
+import com.swpu.uchain.blog.vo.ArticleListVO;
+
 import java.util.List;
 
 public interface ArticleMapper {
@@ -15,4 +17,10 @@ public interface ArticleMapper {
     int updateByPrimaryKey(Article record);
 
     Article selectByArticleTitle(String title);
+
+    List<ArticleListVO> getArticleList();
+
+    ArticleListVO selectArticlesByTagId(Integer tagId);
+
+    ArticleListVO selectByArticlesByTypeId(Integer typeId);
 }

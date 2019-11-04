@@ -1,10 +1,11 @@
 package com.swpu.uchain.blog.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.swpu.uchain.blog.dao.ArticleMapper;
+import com.swpu.uchain.blog.dao.CommentMapper;
 import com.swpu.uchain.blog.dto.ArticleDTO;
 import com.swpu.uchain.blog.entity.Article;
-import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
 import com.swpu.uchain.blog.form.CreatArticleForm;
@@ -15,13 +16,18 @@ import com.swpu.uchain.blog.service.CommentService;
 import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.util.TimeUtil;
+import com.swpu.uchain.blog.vo.ArticleListVO;
 import com.swpu.uchain.blog.vo.CommentVO;
 import com.swpu.uchain.blog.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -41,10 +47,14 @@ public class ArticleServiceImpl implements ArticleService {
     private CommentService commentService;
 
     @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private RedisService redisService;
+
 
     @Override
     public boolean insert(Article article) {
@@ -77,7 +87,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResultVO insertArticle(CreatArticleForm form) {
         Article article = new Article();
-        BeanUtils.copyProperties(form,article);
+        BeanUtils.copyProperties(form, article);
         if (findArticleByTitle(article.getTitle()) != null) {
             return ResultVOUtil.error(ResultEnum.ARTICLE_TITLE_EXIST);
         }
@@ -105,6 +115,10 @@ public class ArticleServiceImpl implements ArticleService {
             return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
         }
         if (delete(id)) {
+            List<Long> commentIdList = commentMapper.getCommentIdByBlogId(id);
+            for (Long commentId : commentIdList) {
+                commentMapper.deleteByPrimaryKey(commentId);
+            }
             return ResultVOUtil.success();
         }
         return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
@@ -113,8 +127,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResultVO selectAll(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Article> list = articleMapper.selectAll();
-        return ResultVOUtil.success(list);
+        List<ArticleListVO> list = articleMapper.getArticleList();
+        PageInfo<ArticleListVO> result = new PageInfo<>(list);
+        return ResultVOUtil.success(result);
     }
 
     @Override
@@ -123,7 +138,6 @@ public class ArticleServiceImpl implements ArticleService {
         if (article == null) {
             throw new GlobalException(ResultEnum.ARTICLE_NOT_EXIST);
         }
-        //判断读取文章的是否作者本人
         article.setReading(article.getReading() + 1);
         if (!update(article)) {
             throw new GlobalException(ResultEnum.ADD_READINGS_ERROR);
@@ -144,4 +158,19 @@ public class ArticleServiceImpl implements ArticleService {
         addReading(blogId);
         return ResultVOUtil.success(articleDTO);
     }
+
+
+    @Override
+    public ResultVO selectArticleByTags(Integer tagId) {
+        ArticleListVO list = articleMapper.selectArticlesByTagId(tagId);
+        return ResultVOUtil.success(list);
+    }
+
+    @Override
+    public ResultVO selectArticleByTypes(Integer typeId) {
+        ArticleListVO list = articleMapper.selectByArticlesByTypeId(typeId);
+        return ResultVOUtil.success(list);
+    }
+
+
 }

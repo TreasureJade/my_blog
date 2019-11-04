@@ -3,6 +3,7 @@ package com.swpu.uchain.blog.service;
 import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.form.CreatArticleForm;
 import com.swpu.uchain.blog.vo.ResultVO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ArticleService {
 
@@ -79,7 +80,25 @@ public interface ArticleService {
 
     /**
      * 获取博客详情
+     *
      * @return
      */
     ResultVO selectArticleDetail(Long blogId);
+
+
+    /**
+     * 根据标签查询文章
+     *
+     * @param tagId
+     * @return
+     */
+    ResultVO selectArticleByTags(Integer tagId);
+
+    /**
+     * 根据种类查询文章
+     *
+     * @param typeId
+     * @return
+     */
+    ResultVO selectArticleByTypes(Integer typeId);
 }
