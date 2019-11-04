@@ -39,11 +39,16 @@ public class ControllerLog {
 
     @AfterReturning(pointcut = "controller()", returning = "ret")
     public void after(Object ret) {
+        if (!ret.getClass().getName().equals(ResultVO.class.getName())){
+            log.info("controller返回参数：" + ret);
+            log.info("-----------------------------------------------------");
+            return;
+        }
         ResultVO result = (ResultVO) ret;
-        if (result != null && result.getCode() != 0) {
+        if (result.getCode() != 0) {
             log.error(result.getMsg());
         }
-        log.info("controller返回参数：" + result);
+        log.info("controller返回参数：" + ret);
         log.info("-----------------------------------------------------");
     }
 }
