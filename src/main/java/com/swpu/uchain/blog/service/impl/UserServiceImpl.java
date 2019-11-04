@@ -7,6 +7,8 @@ import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.enums.TemplateCodeEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
 import com.swpu.uchain.blog.form.LoginForm;
+import com.swpu.uchain.blog.form.UpdatePwForm;
+import com.swpu.uchain.blog.form.UpdateUserForm;
 import com.swpu.uchain.blog.form.UserInsertForm;
 import com.swpu.uchain.blog.redis.RedisService;
 import com.swpu.uchain.blog.redis.key.PhoneCodeKey;
@@ -16,6 +18,9 @@ import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.AliyunSmsUtils;
 import com.swpu.uchain.blog.util.JwtTokenUtil;
 import com.swpu.uchain.blog.util.ResultVOUtil;
+import com.swpu.uchain.blog.util.UploadFileUtil;
+import com.swpu.uchain.blog.vo.ResultVO;
+import com.swpu.uchain.blog.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -44,8 +50,11 @@ import java.util.Map;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Value("${file.headPic}")
-    private  String headPicPath;
+    @Value("${file.head-pic.default-pic}")
+    private String headDefaultPicPath;
+
+    @Value("${file.head-pic.upload-pic}")
+    private String headPicUploadPath;
 
     @Autowired
     private UserMapper userMapper;
@@ -78,7 +87,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByUserId(Long  userId) {
+    public boolean update(User user) {
+        return userMapper.updateByPrimaryKey(user) == 1;
+    }
+
+    @Override
+    public User selectByUserId(Long userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
 
@@ -99,7 +113,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object login(LoginForm loginForm, HttpServletResponse response) {
+    public ResultVO login(LoginForm loginForm, HttpServletResponse response) {
         User user = userMapper.getUserByPhone(loginForm.getPhoneNum());
         if (user == null) {
             return ResultVOUtil.error(ResultEnum.USER_NOT_EXIST);
@@ -124,10 +138,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object insertUser(UserInsertForm userInsertForm) {
+    public ResultVO insertUser(UserInsertForm userInsertForm) {
+        if (userMapper.selectByPhoneNum(userInsertForm.getPhoneNumber()) != null) {
+            return ResultVOUtil.error(ResultEnum.USER_ALREADY_EXIST);
+        }
         String code = redisService.get(PhoneCodeKey.phoneCodeKey, userInsertForm.getPhoneNumber(), String.class);
+        if (code == null) {
+            return ResultVOUtil.error(ResultEnum.CODE_IS_NULL);
+        }
         if (!code.equals(userInsertForm.getCode())) {
-            throw new GlobalException(ResultEnum.PHONE_CODE_ERROR);
+            return ResultVOUtil.error(ResultEnum.PHONE_CODE_ERROR);
         }
         String password = userInsertForm.getPassword();
         password = new BCryptPasswordEncoder().encode(password);
@@ -135,7 +155,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userInsertForm, user);
         user.setRole(1);
-        user.setHeadPortrait(headPicPath);
+        user.setHeadPortrait(headDefaultPicPath);
         if (insert(user)) {
             return ResultVOUtil.success();
         }
@@ -143,7 +163,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object getValidationCode(String phoneNumber) {
+    public ResultVO getValidationCode(String phoneNumber) {
         String code = AliyunSmsUtils.setCode();
         try {
             AliyunSmsUtils.sendInsertUserMsg(phoneNumber, code, TemplateCodeEnum.INSERTUSER.getValue());
@@ -153,6 +173,60 @@ public class UserServiceImpl implements UserService {
             log.info("失败原因: {}", e.getMessage());
             return ResultVOUtil.error(ResultEnum.PHONE_CODE_SEND_ERROR);
         }
+    }
+
+    @Override
+    public ResultVO updatePw(UpdatePwForm form) {
+        User user = userMapper.getUserByPhone(form.getPhoneNum());
+        if (user == null) {
+            return ResultVOUtil.error(ResultEnum.USER_NOT_EXIST);
+        }
+        String code = redisService.get(PhoneCodeKey.phoneCodeKey, form.getPhoneNum(), String.class);
+        if (code == null) {
+            return ResultVOUtil.error(ResultEnum.CODE_IS_NULL);
+        }
+        if (!code.equals(form.getCode())) {
+            return ResultVOUtil.error(ResultEnum.PHONE_CODE_ERROR);
+        }
+        user.setPassword(form.getNewPassword());
+        if (update(user)) {
+            return ResultVOUtil.success();
+        }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+    }
+
+    @Override
+    public ResultVO getOwnerMsg() {
+        User user = getCurrentUser();
+        UserVO result = userMapper.selectByPhoneNum(user.getPhoneNumber());
+        if (result != null) {
+            return ResultVOUtil.success(result);
+        }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+    }
+
+    @Override
+    public ResultVO updateUser(UpdateUserForm form, MultipartFile file) {
+        User user = getCurrentUser();
+        BeanUtils.copyProperties(form, user);
+        if (file != null) {
+            // 获得文件后缀
+            String fileName = file.getOriginalFilename();
+            assert fileName != null;
+            String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+            String filePath = UploadFileUtil.uploadFile(headPicUploadPath + user.getUserId() + "."
+                    + suffix, file);
+            log.info("filePath:{}", filePath);
+            if (!"".equals(filePath)) {
+                user.setHeadPortrait(filePath);
+            }
+        }
+        if (update(user)) {
+            UserVO vo = new UserVO();
+            BeanUtils.copyProperties(user, vo);
+            return ResultVOUtil.success(vo);
+        }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
     }
 
 }

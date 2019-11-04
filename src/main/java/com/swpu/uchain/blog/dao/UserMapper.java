@@ -1,6 +1,8 @@
 package com.swpu.uchain.blog.dao;
 
 import com.swpu.uchain.blog.entity.User;
+import com.swpu.uchain.blog.vo.UserVO;
+
 import java.util.List;
 
 public interface UserMapper {
@@ -15,4 +17,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User getUserByPhone(String phoneNum);
+
+    UserVO selectByPhoneNum(String phoneNumber);
 }

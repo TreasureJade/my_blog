@@ -2,7 +2,11 @@ package com.swpu.uchain.blog.service;
 
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.form.LoginForm;
+import com.swpu.uchain.blog.form.UpdatePwForm;
+import com.swpu.uchain.blog.form.UpdateUserForm;
 import com.swpu.uchain.blog.form.UserInsertForm;
+import com.swpu.uchain.blog.vo.ResultVO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +17,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface UserService {
 
+    /**
+     * 添加用户
+     *
+     * @param user
+     * @return boolean
+     */
     boolean insert(User user);
+
+    /**
+     * 更新用户
+     *
+     * @param user
+     * @return boolean
+     */
+    boolean update(User user);
 
     /**
      * 根据id查询用户
@@ -21,7 +39,7 @@ public interface UserService {
      * @param userId
      * @return
      */
-    User selectByUserId(Long  userId);
+    User selectByUserId(Long userId);
 
     /**
      * 根据手机号码查询用户
@@ -42,12 +60,13 @@ public interface UserService {
 
     /**
      * 用户登录
+     *
      * @param loginForm
      * @param response
-     * @author hobo
      * @return java.lang.Object
+     * @author hobo
      */
-    Object login(LoginForm loginForm, HttpServletResponse response);
+    ResultVO login(LoginForm loginForm, HttpServletResponse response);
 
     /**
      * 用户注册
@@ -55,12 +74,31 @@ public interface UserService {
      * @param userInsertForm
      * @return java.lang.Object
      */
-    Object insertUser(UserInsertForm userInsertForm);
+    ResultVO insertUser(UserInsertForm userInsertForm);
 
     /**
-     *
      * @param phoneNumber
      * @return java.lang.Object
      */
-    Object getValidationCode(String phoneNumber);
+    ResultVO getValidationCode(String phoneNumber);
+
+    /***
+     * 修改密码
+     * @param form
+     * @return java.lang.Object
+     */
+    ResultVO updatePw(UpdatePwForm form);
+
+    /**
+     * 用户查看个人信息
+     * @return
+     */
+    ResultVO getOwnerMsg();
+
+    /**
+     * 用户更新个人信息
+     * @param form
+     * @return
+     */
+    ResultVO updateUser(UpdateUserForm form, MultipartFile file);
 }
