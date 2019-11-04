@@ -87,6 +87,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/configuration/security").permitAll()
                 //配置允许匿名访问的路径
                 .antMatchers("/anon/*","/article/*").permitAll()
+                // 博客图片地址
+                .antMatchers("/home/hobo/blog/blog-pic/*").permitAll()
                 .anyRequest().authenticated();
 
         //配置自己的验证过滤器
