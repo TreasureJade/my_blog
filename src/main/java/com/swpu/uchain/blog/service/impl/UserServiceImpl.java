@@ -15,10 +15,7 @@ import com.swpu.uchain.blog.redis.key.PhoneCodeKey;
 import com.swpu.uchain.blog.security.JwtProperties;
 import com.swpu.uchain.blog.security.JwtUserDetailServiceImpl;
 import com.swpu.uchain.blog.service.UserService;
-import com.swpu.uchain.blog.util.AliyunSmsUtils;
-import com.swpu.uchain.blog.util.JwtTokenUtil;
-import com.swpu.uchain.blog.util.ResultVOUtil;
-import com.swpu.uchain.blog.util.UploadFileUtil;
+import com.swpu.uchain.blog.util.*;
 import com.swpu.uchain.blog.vo.ResultVO;
 import com.swpu.uchain.blog.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -164,7 +161,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultVO getValidationCode(String phoneNumber) {
-        String code = AliyunSmsUtils.setCode();
+        String code = RandomUtil.setCode();
         try {
             AliyunSmsUtils.sendInsertUserMsg(phoneNumber, code, TemplateCodeEnum.INSERTUSER.getValue());
             redisService.set(PhoneCodeKey.phoneCodeKey, phoneNumber, code);
