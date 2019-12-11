@@ -9,6 +9,7 @@ import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
 import com.swpu.uchain.blog.form.CreatArticleForm;
+import com.swpu.uchain.blog.form.UpdateArticleForm;
 import com.swpu.uchain.blog.redis.RedisService;
 import com.swpu.uchain.blog.redis.key.ArticleKey;
 import com.swpu.uchain.blog.service.ArticleService;
@@ -22,9 +23,7 @@ import com.swpu.uchain.blog.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,10 +98,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResultVO updateArticle(Article article) {
-        if (findArticleByTitle(article.getTitle()) == null) {
+    public ResultVO updateArticle(UpdateArticleForm form) {
+        Article article = articleMapper.selectByPrimaryKey(form.getId());
+        if (article == null) {
             return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
         }
+        BeanUtils.copyProperties(form,article);
+        String updateTime = TimeUtil.getNowTime();
+        article.setUpdateTime(updateTime);
         if (update(article)) {
             return ResultVOUtil.success(article);
         }

@@ -48,7 +48,7 @@ public class AuthRoleInterceptor extends HandlerInterceptorAdapter {
             Integer roleValue = roleContro.role().getValue();
             Integer userValue = user.getRole();
             log.info("RoleValue:{},userRole:{}", roleValue, userValue);
-            if (userValue > roleValue) {
+            if (userValue >= roleValue) {
                 return true;
             } else {
                 json = JSON.toJSONString(ResultVOUtil.error(ResultEnum.PERMISSION_DENNY));

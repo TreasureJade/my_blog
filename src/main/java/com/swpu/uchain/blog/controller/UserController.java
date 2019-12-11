@@ -1,11 +1,10 @@
 package com.swpu.uchain.blog.controller;
 
-import com.swpu.uchain.blog.accessctro.RoleContro;
-import com.swpu.uchain.blog.enums.RoleEnum;
 import com.swpu.uchain.blog.form.UpdatePwForm;
 import com.swpu.uchain.blog.form.UpdateUserForm;
 import com.swpu.uchain.blog.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/user")
 @Api(tags = "用户接口 ")
+@CrossOrigin
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -41,8 +42,14 @@ public class UserController {
 
     @ApiOperation("修改个人信息")
     @PostMapping(name = "修改个人信息", value = "/updateUser")
-    public Object updateUser(UpdateUserForm form,@RequestParam("头像图片") MultipartFile file) {
-        return userService.updateUser(form,file);
+    public Object updateUser(UpdateUserForm form) {
+        return userService.updateUser(form);
+    }
+
+    @ApiOperation("上传头像图片")
+    @PostMapping(name = "上传头像图片",value = "/uploadHeadPic")
+    public Object uploadHeadPic(MultipartFile file){
+        return userService.uploadHeadPic(file);
     }
 
 

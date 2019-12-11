@@ -20,8 +20,7 @@ public class CreatCommentForm {
     @NotNull(message = "评论内容不能为空")
     private String commentMsg;
 
-    @ApiModelProperty("被回复人")
-    @NotNull(message = "被回复人的Id不能为空")
+    @ApiModelProperty("被回复人 ")
     private Long replyUserId;
 
     @ApiModelProperty("父级评论Id 若为首级评论则为0")

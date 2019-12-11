@@ -63,4 +63,30 @@
     from article
     where title=#{title}
     </select>
+    <select id="getArticleList" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
+    SELECT  at.id AS blog_id,at.digest,at.author,at.title,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
+	 FROM article at
+	 LEFT JOIN tags ON tags.id = at.tags_id
+     LEFT JOIN comment ct ON at.id= ct.blog_id
+	 LEFT JOIN types ON types.id = at.type_id
+	GROUP BY at.id
+    </select>
+  <select id="selectArticlesByTagId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
+    SELECT  at.id AS blog_id,at.digest,at.author,at.title,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
+	 FROM article at
+	 LEFT JOIN tags ON tags.id = at.tags_id
+     LEFT JOIN comment ct ON at.id= ct.blog_id
+	 LEFT JOIN types ON types.id = at.type_id
+	 WHERE tags.id=#{tagId}
+	GROUP BY at.id
+  </select>
+    <select id="selectByArticlesByTypeId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
+    SELECT  at.id AS blog_id,at.digest,at.author,at.title,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
+	 FROM article at
+	 LEFT JOIN tags ON tags.id = at.tags_id
+     LEFT JOIN comment ct ON at.id= ct.blog_id
+	 LEFT JOIN types ON types.id = at.type_id
+	 WHERE types.id=#{typeId}
+	GROUP BY at.id
+    </select>
 </mapper>

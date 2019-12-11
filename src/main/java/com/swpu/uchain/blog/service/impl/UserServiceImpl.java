@@ -203,9 +203,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultVO updateUser(UpdateUserForm form, MultipartFile file) {
+    public ResultVO updateUser(UpdateUserForm form) {
         User user = getCurrentUser();
+        if (user == null) {
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
+        }
         BeanUtils.copyProperties(form, user);
+        user.setUserId(user.getUserId());
+        if (update(user)) {
+            UserVO vo = new UserVO();
+            BeanUtils.copyProperties(user, vo);
+            return ResultVOUtil.success(vo);
+        }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+    }
+
+    @Override
+    public ResultVO uploadHeadPic(MultipartFile file) {
+        User user = getCurrentUser();
         if (file != null) {
             // 获得文件后缀
             String fileName = file.getOriginalFilename();
@@ -214,16 +229,9 @@ public class UserServiceImpl implements UserService {
             String filePath = UploadFileUtil.uploadFile(headPicUploadPath + user.getUserId() + "."
                     + suffix, file);
             log.info("filePath:{}", filePath);
-            if (!"".equals(filePath)) {
-                user.setHeadPortrait(filePath);
-            }
+            return ResultVOUtil.success(filePath);
         }
-        if (update(user)) {
-            UserVO vo = new UserVO();
-            BeanUtils.copyProperties(user, vo);
-            return ResultVOUtil.success(vo);
-        }
-        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+        return ResultVOUtil.error(ResultEnum.FILE_UPLOAD_ERROR);
     }
 
 }

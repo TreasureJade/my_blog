@@ -100,5 +100,12 @@ public interface UserService {
      * @param form
      * @return
      */
-    ResultVO updateUser(UpdateUserForm form, MultipartFile file);
+    ResultVO updateUser(UpdateUserForm form);
+
+    /**
+     * 用户上传头像图片
+     * @param file 头像图片
+     * @return
+     */
+    ResultVO uploadHeadPic(MultipartFile file);
 }

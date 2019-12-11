@@ -2,6 +2,7 @@ package com.swpu.uchain.blog.service;
 
 import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.form.CreatArticleForm;
+import com.swpu.uchain.blog.form.UpdateArticleForm;
 import com.swpu.uchain.blog.vo.ResultVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,11 +47,11 @@ public interface ArticleService {
     /**
      * 修改一篇博客
      *
-     * @param article
+     * @param form
      * @return com.swpu.uchain.blog.vo.ResultVO
      * @author hobo
      */
-    ResultVO updateArticle(Article article);
+    ResultVO updateArticle(UpdateArticleForm form);
 
     /**
      * 删除一篇博客

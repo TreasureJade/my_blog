@@ -4,14 +4,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * @author hobo
  * @description
  */
 @Data
-public class CreatArticleForm {
+public class UpdateArticleForm {
+
+    @ApiModelProperty("文章id")
+    @NotNull(message = "文章id不能为空")
+    private Long id;
 
     @ApiModelProperty("摘要")
     @NotNull(message = "摘要不能为空")
@@ -36,4 +39,5 @@ public class CreatArticleForm {
     @ApiModelProperty("文章内容  html文本")
     @NotNull(message = "文章内容不能为空")
     private String article;
+
 }

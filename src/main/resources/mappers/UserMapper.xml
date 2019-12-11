@@ -55,4 +55,10 @@
     from user
     where phone_number=#{phoneNumber}
   </select>
+  <select id="selectByPhoneNum" resultType="com.swpu.uchain.blog.vo.UserVO">
+    select user_id, phone_number,username, true_name, email, birthday,
+    head_portrait
+    from user
+    where phone_number=#{phoneNumber}
+  </select>
 </mapper>

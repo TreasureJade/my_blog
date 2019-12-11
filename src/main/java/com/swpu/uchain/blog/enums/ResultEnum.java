@@ -30,7 +30,11 @@ public enum ResultEnum {
     REQUEST_METHOD_ERROR(550, "不支持%s的请求方式"),
 
 
-    USER_NOT_LOGIN(13,"用户未登录");
+    USER_NOT_LOGIN(13,"用户未登录"),
+    FILE_PATH_NOT_EXIST(14,"上传失败，文件目录不存在" ),
+    USER_ALREADY_EXIST(15,"此手机已注册" ),
+    CODE_IS_NULL(16,"验证码已过期，请重新获取" ),
+    FILE_UPLOAD_ERROR(17,"文件上传失败");
     private Integer code;
 
     private String msg;

@@ -25,15 +25,6 @@ public class CommentController {
     private CommentService commentService;
 
 
-//    @PostMapping(value = "/delete", name = "删除评论")
-//    public void deleteComment() {
-//    }
-//
-//
-//    @GetMapping(value = "/addComments", name = "添加评论数")
-//    public void addComments() {
-//    }
-
     @ApiOperation("评论文章")
     @PostMapping(name = "评论某篇文章",value = "/insert")
     public Object creatComment(CreatCommentForm form) {
