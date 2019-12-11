@@ -163,13 +163,15 @@ public class UserServiceImpl implements UserService {
     public ResultVO getValidationCode(String phoneNumber) {
         String code = RandomUtil.setCode();
         try {
-            AliyunSmsUtils.sendInsertUserMsg(phoneNumber, code, TemplateCodeEnum.INSERTUSER.getValue());
-            redisService.set(PhoneCodeKey.phoneCodeKey, phoneNumber, code);
-            return ResultVOUtil.success(code);
+            if (AliyunSmsUtils.sendInsertUserMsg(phoneNumber, code, TemplateCodeEnum.INSERTUSER.getValue())) {
+                redisService.set(PhoneCodeKey.phoneCodeKey, phoneNumber, code);
+                return ResultVOUtil.success(code);
+            }
         } catch (ClientException e) {
             log.info("失败原因: {}", e.getMessage());
             return ResultVOUtil.error(ResultEnum.PHONE_CODE_SEND_ERROR);
         }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
     }
 
     @Override
