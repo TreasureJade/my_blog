@@ -46,12 +46,10 @@
     where blog_id = #{blogId} and pid =0
   </select>
   <select id="selectCommentById" resultType="com.swpu.uchain.blog.vo.CommentVO">
-    SELECT u.user_id,u.username,u.head_portrait ,c.comment_id,c.comment_msg,c.creat_time
-    FROM
-	user  u,
-	comment c
-    WHERE u.user_id = c.user_id
-    and c.comment_id = #{id}
+   SELECT u.user_id,u.username,u.head_portrait ,c.comment_id,c.comment_msg,c.creat_time
+		FROM  comment c
+		LEFT JOIN  user u on c.user_id = u.user_id
+		where c.comment_id = #{id}
   </select>
   <select id="selectByPid" resultType="com.swpu.uchain.blog.vo.ReplyVO">
     SELECT u.user_id,u.username,u.head_portrait ,c.comment_id,c.comment_msg,c.creat_time,c.reply_user_id

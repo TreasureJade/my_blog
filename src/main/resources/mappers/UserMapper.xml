@@ -42,7 +42,7 @@
     select user_id, phone_number, `password`, `role`, username, true_name, email, birthday,
     head_portrait
     from user
-    where userId = #{commentId,jdbcType=BIGINT}
+    where user_id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select user_id, phone_number, `password`, `role`, username, true_name, email, birthday,
