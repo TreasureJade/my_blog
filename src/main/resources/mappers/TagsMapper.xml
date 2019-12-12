@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Tags">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="tags_msg" jdbcType="VARCHAR" property="tagsMsg" />
-    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="creat_time" jdbcType="VARCHAR" property="creatTime" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tags
@@ -13,13 +13,13 @@
   <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Tags">
     insert into tags (id, tags_msg, creat_time
       )
-    values (#{id,jdbcType=INTEGER}, #{tagsMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{tagsMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Tags">
     update tags
     set tags_msg = #{tagsMsg,jdbcType=VARCHAR},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+      creat_time = #{creatTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -31,4 +31,9 @@
     select id, tags_msg, creat_time
     from tags
   </select>
+    <select id="selectByTag" resultType="com.swpu.uchain.blog.entity.Tags">
+      select tags_msg
+      from tags
+      where tags_msg = #{tagsMsg}
+    </select>
 </mapper>

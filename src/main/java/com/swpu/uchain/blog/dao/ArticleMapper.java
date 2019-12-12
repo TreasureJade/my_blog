@@ -18,6 +18,8 @@ public interface ArticleMapper {
 
     Article selectByArticleTitle(String title);
 
+    List<Article> selectByTagsId(Integer tagsId);
+
     List<ArticleListVO> getArticleList();
 
     ArticleListVO selectArticlesByTagId(Integer tagId);

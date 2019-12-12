@@ -34,7 +34,10 @@ public enum ResultEnum {
     FILE_PATH_NOT_EXIST(14,"上传失败，文件目录不存在" ),
     USER_ALREADY_EXIST(15,"此手机已注册" ),
     CODE_IS_NULL(16,"验证码已过期，请重新获取" ),
-    FILE_UPLOAD_ERROR(17,"文件上传失败");
+    FILE_UPLOAD_ERROR(17,"文件上传失败"),
+    TAG_IS_ALREADY_EXIST(18,"标签已存在" ),
+    TAG_NOT_EXIST(19,"标签不存在" ),
+    DEFAULT_GROUP_CAN_NOT_DELETE(20,"默认分组不能删除" );
     private Integer code;
 
     private String msg;

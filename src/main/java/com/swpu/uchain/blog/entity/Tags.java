@@ -8,7 +8,7 @@ public class Tags implements Serializable {
 
     private String tagsMsg;
 
-    private Date creatTime;
+    private String creatTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -28,11 +28,11 @@ public class Tags implements Serializable {
         this.tagsMsg = tagsMsg == null ? null : tagsMsg.trim();
     }
 
-    public Date getCreatTime() {
+    public String  getCreatTime() {
         return creatTime;
     }
 
-    public void setCreatTime(Date creatTime) {
+    public void setCreatTime(String  creatTime) {
         this.creatTime = creatTime;
     }
 

@@ -1,0 +1,48 @@
+package com.swpu.uchain.blog.controller;
+
+import com.swpu.uchain.blog.form.InsertTagsForm;
+import com.swpu.uchain.blog.form.UpdateTagsForm;
+import com.swpu.uchain.blog.service.TagsService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author hobo
+ * @description
+ */
+@RestController
+@RequestMapping("/tags")
+public class TagsController {
+
+    @Autowired
+    private TagsService tagsService;
+
+    @ApiOperation("添加标签")
+    @PostMapping(name = "添加标签", value = "/insert")
+    public Object insertTags(InsertTagsForm form) {
+        return tagsService.insertTags(form);
+    }
+
+    @ApiOperation("更新标签")
+    @PostMapping(name = "更新标签", value = "/update")
+    public Object updateTags(UpdateTagsForm form) {
+        return tagsService.updateTags(form);
+    }
+
+    @ApiOperation("删除标签")
+    @GetMapping(name = "删除标签",value = "/delete")
+    public Object deleteTags(Integer id) {
+        return tagsService.deleteTags(id);
+    }
+
+    @ApiOperation("查看所有标签")
+    @GetMapping(name = "查看所有标签",value = "/all")
+    public Object selectAllTags(){
+        return tagsService.selectAllTags();
+    }
+
+}

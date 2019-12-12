@@ -89,4 +89,9 @@
 	 WHERE types.id=#{typeId}
 	GROUP BY at.id
     </select>
+    <select id="selectByTagsId" resultType="com.swpu.uchain.blog.entity.Article">
+      SELECT id,tags_id
+      FROM tags
+      WHERE tags_id =#{tagsId}
+    </select>
 </mapper>
