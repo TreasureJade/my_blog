@@ -6,6 +6,7 @@ import com.swpu.uchain.blog.form.CreatArticleForm;
 import com.swpu.uchain.blog.form.PageForm;
 import com.swpu.uchain.blog.form.UpdateArticleForm;
 import com.swpu.uchain.blog.service.ArticleService;
+import com.swpu.uchain.blog.util.IpUtil;
 import com.swpu.uchain.blog.util.RandomUtil;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.util.UploadFileUtil;
@@ -36,8 +37,6 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @Autowired
-    protected HttpServletRequest request;
 
     private static String uploadPath = "/home/hobo/blog/blog-pic/";
 
@@ -55,14 +54,14 @@ public class ArticleController {
 
     @ApiOperation("上传图片")
     @PostMapping(name = "上传图片", value = "/uploadpic")
-    public Object uploadFile(HttpServletRequest request, MultipartFile upload) {
+    public Object uploadFile(MultipartFile upload) {
         Map map = new HashMap();
         String fileName = upload.getOriginalFilename();
 
         assert fileName != null;
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String newFileName = RandomUtil.getRandomStringByLength(10) + "." + suffix;
-        String URL = request.getLocalAddr() + ":" + request.getLocalPort();
+        String URL = IpUtil.getHostIp();
         String filePath = UploadFileUtil.uploadFile(uploadPath + newFileName, upload);
         if (!"".equals(filePath)) {
             map.put("uploaded", 1);
