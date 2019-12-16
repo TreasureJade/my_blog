@@ -13,6 +13,8 @@ public class CommentVO {
 
     private Long commentId;
 
+    private Long userId;
+
     private String userName;
 
     private String headPortrait;
