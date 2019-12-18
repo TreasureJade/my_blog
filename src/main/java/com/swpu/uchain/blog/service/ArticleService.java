@@ -2,6 +2,8 @@ package com.swpu.uchain.blog.service;
 
 import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.form.CreatArticleForm;
+import com.swpu.uchain.blog.form.SelectByTagForm;
+import com.swpu.uchain.blog.form.SelectByTypeForm;
 import com.swpu.uchain.blog.form.UpdateArticleForm;
 import com.swpu.uchain.blog.vo.ResultVO;
 import org.springframework.web.multipart.MultipartFile;
@@ -90,16 +92,24 @@ public interface ArticleService {
     /**
      * 根据标签查询文章
      *
-     * @param tagId
+     * @param form
      * @return
      */
-    ResultVO selectArticleByTags(Integer tagId);
+    ResultVO selectArticleByTags(SelectByTagForm form);
 
     /**
      * 根据种类查询文章
      *
-     * @param typeId
+     * @param form
      * @return
      */
-    ResultVO selectArticleByTypes(Integer typeId);
+    ResultVO selectArticleByTypes(SelectByTypeForm form);
+
+    /**
+     * 点赞/取消点赞
+     * @param blogId
+     * @param isLike
+     * @return
+     */
+    ResultVO likeArticle(long blogId,boolean isLike);
 }

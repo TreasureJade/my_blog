@@ -4,11 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.swpu.uchain.blog.dao.ArticleMapper;
 import com.swpu.uchain.blog.dao.CommentMapper;
-import com.swpu.uchain.blog.dto.ArticleDTO;
+import com.swpu.uchain.blog.dao.UserLikesMapper;
 import com.swpu.uchain.blog.entity.Article;
+import com.swpu.uchain.blog.entity.User;
+import com.swpu.uchain.blog.entity.UserLikes;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.exception.GlobalException;
 import com.swpu.uchain.blog.form.CreatArticleForm;
+import com.swpu.uchain.blog.form.SelectByTagForm;
+import com.swpu.uchain.blog.form.SelectByTypeForm;
 import com.swpu.uchain.blog.form.UpdateArticleForm;
 import com.swpu.uchain.blog.redis.RedisService;
 import com.swpu.uchain.blog.redis.key.ArticleKey;
@@ -18,6 +22,7 @@ import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.util.TimeUtil;
 import com.swpu.uchain.blog.vo.ArticleListVO;
+import com.swpu.uchain.blog.vo.ArticleVO;
 import com.swpu.uchain.blog.vo.CommentVO;
 import com.swpu.uchain.blog.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +30,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -47,6 +50,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private UserLikesMapper likesMapper;
 
     @Autowired
     private UserService userService;
@@ -103,8 +109,8 @@ public class ArticleServiceImpl implements ArticleService {
         if (article == null) {
             return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
         }
-        BeanUtils.copyProperties(form,article);
-        String updateTime = TimeUtil.getNowTime();
+        BeanUtils.copyProperties(form, article);
+        String updateTime = TimeUtil.getTimeCN();
         article.setUpdateTime(updateTime);
         if (update(article)) {
             return ResultVOUtil.success(article);
@@ -149,31 +155,97 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ResultVO selectArticleDetail(Long blogId) {
-        Article article = articleMapper.selectByPrimaryKey(blogId);
+        ArticleVO article = articleMapper.selectByArticleId(blogId);
         if (article == null) {
             return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
         }
-        List<CommentVO> commentList = commentService.getAllCommentByBlogId(blogId);
-        ArticleDTO articleDTO = new ArticleDTO();
-        BeanUtils.copyProperties(article, articleDTO);
-        articleDTO.setCommentList(commentList);
         // 阅读量 +1
         addReading(blogId);
-        return ResultVOUtil.success(articleDTO);
+        User user = userService.getCurrentUser();
+        if (user != null) {
+            UserLikes userLikes = likesMapper.selectByPrimaryKey(user.getUserId(), blogId);
+            if (userLikes != null) {
+                article.setIsLike(userLikes.getIsLike());
+            } else {
+                article.setIsLike(false);
+            }
+        }else {
+            article.setIsLike(false);
+        }
+        List<CommentVO> commentList = commentService.getAllCommentByBlogId(blogId);
+        article.setCommentList(commentList);
+
+        return ResultVOUtil.success(article);
     }
 
 
     @Override
-    public ResultVO selectArticleByTags(Integer tagId) {
-        ArticleListVO list = articleMapper.selectArticlesByTagId(tagId);
+    public ResultVO selectArticleByTags(SelectByTagForm form) {
+        PageHelper.startPage(form.getPageNum(), form.getPageSize());
+        List<ArticleListVO> list = articleMapper.selectArticlesByTagId(form.getTagId());
+        PageInfo<ArticleListVO> result = new PageInfo<>(list);
         return ResultVOUtil.success(list);
     }
 
     @Override
-    public ResultVO selectArticleByTypes(Integer typeId) {
-        ArticleListVO list = articleMapper.selectByArticlesByTypeId(typeId);
+    public ResultVO selectArticleByTypes(SelectByTypeForm form) {
+        PageHelper.startPage(form.getPageNum(), form.getPageSize());
+        List<ArticleListVO> list = articleMapper.selectByArticlesByTypeId(form.getTypeId());
+        PageInfo<ArticleListVO> result = new PageInfo<>(list);
         return ResultVOUtil.success(list);
     }
 
+    @Override
+    public ResultVO likeArticle(long blogId, boolean isLike) {
+        User user = userService.getCurrentUser();
+        if (user == null) {
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
+        }
+        UserLikes userLikes = likesMapper.selectByPrimaryKey(user.getUserId(), blogId);
+        // 点赞
+        if (isLike) {
+            if (userLikes == null) {
+                UserLikes like = new UserLikes();
+                like.setUserId(user.getUserId());
+                like.setBlogId(blogId);
+                like.setIsLike(isLike);
+                if (likesMapper.insert(like) == 1) {
+                    if (updateLike(blogId, isLike)) {
+                        return ResultVOUtil.success();
+                    }
+                }
+            } else {
+                userLikes.setIsLike(isLike);
+                if (likesMapper.updateByPrimaryKey(userLikes) == 1) {
+                    if (updateLike(blogId, isLike)) {
+                        return ResultVOUtil.success();
+                    }
+                }
+            }
+        } else {
+            userLikes.setIsLike(isLike);
+            if (likesMapper.updateByPrimaryKey(userLikes) == 1) {
+                if (updateLike(blogId, isLike)) {
+                    return ResultVOUtil.success();
+                }
+            }
+        }
+
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+    }
+
+    private boolean updateLike(long blogId, boolean isLike) {
+        Article article = articleMapper.selectByPrimaryKey(blogId);
+        if (article != null) {
+            if (isLike) {
+                article.setLikes(article.getLikes() + 1);
+                return update(article);
+            } else {
+                article.setLikes(article.getLikes() - 1);
+                return update(article);
+            }
+        }
+        return false;
+    }
 
 }
