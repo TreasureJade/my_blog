@@ -13,4 +13,6 @@ public interface TypesMapper {
     List<Types> selectAll();
 
     int updateByPrimaryKey(Types record);
+
+    Types selectByTypeMsg(String typeMsg);
 }

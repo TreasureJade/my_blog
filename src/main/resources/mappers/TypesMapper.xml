@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Types" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type_msg" property="typeMsg" jdbcType="VARCHAR" />
-    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from types
@@ -13,13 +13,13 @@
   <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Types" >
     insert into types (id, type_msg, creat_time
       )
-    values (#{id,jdbcType=INTEGER}, #{typeMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{typeMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Types" >
     update types
     set type_msg = #{typeMsg,jdbcType=VARCHAR},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+      creat_time = #{creatTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -30,5 +30,10 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, type_msg, creat_time
     from types
+  </select>
+  <select id="selectByTypeMsg" resultType="com.swpu.uchain.blog.entity.Types">
+    select  type_msg
+    from types
+    where type_msg = #{typeMsg}
   </select>
 </mapper>
