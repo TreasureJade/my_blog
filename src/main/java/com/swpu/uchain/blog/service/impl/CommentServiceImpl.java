@@ -60,7 +60,7 @@ public class CommentServiceImpl implements CommentService {
             return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
         }
         comment.setUserId(user.getUserId());
-        comment.setCreatTime(TimeUtil.getTimeCN());
+        comment.setCreatTime(TimeUtil.getNowTime());
 
         if (insert(comment)) {
             // 评论数目加1
