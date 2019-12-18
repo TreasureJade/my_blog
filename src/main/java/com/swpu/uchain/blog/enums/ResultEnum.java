@@ -37,7 +37,9 @@ public enum ResultEnum {
     FILE_UPLOAD_ERROR(17,"文件上传失败"),
     TAG_IS_ALREADY_EXIST(18,"标签已存在" ),
     TAG_NOT_EXIST(19,"标签不存在" ),
-    DEFAULT_GROUP_CAN_NOT_DELETE(20,"默认分组不能删除" );
+    DEFAULT_GROUP_CAN_NOT_DELETE(20,"默认分组不能删除" ),
+    TYPE_IS_ALREADY_EXIST(21,"分类已经存在" ),
+    TYPE_NOT_EXIST(22,"分类不存在" );
     private Integer code;
 
     private String msg;
