@@ -17,18 +17,18 @@ public class TimeUtil {
      */
     public static String getNowTime() {
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
 
     /**
-     * 获得当前的时间 格式为：yyyy年yy月yy日 HH:mm:ss
+     * 获得当前的时间 格式为：yyyy年yy月yy日
      *
      * @return
      */
     public static String getTimeCN() {
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         return format.format(date);
     }
 
