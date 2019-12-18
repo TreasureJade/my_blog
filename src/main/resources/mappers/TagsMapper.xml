@@ -31,7 +31,7 @@
     select id, tags_msg, creat_time
     from tags
   </select>
-    <select id="selectByTag" resultType="com.swpu.uchain.blog.entity.Tags">
+    <select id="selectByTagMsg" resultType="com.swpu.uchain.blog.entity.Tags">
       select tags_msg
       from tags
       where tags_msg = #{tagsMsg}

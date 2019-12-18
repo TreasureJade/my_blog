@@ -19,7 +19,11 @@ public class ArticleListVO {
 
     private String creatTime;
 
+    private Integer tagsId;
+
     private String tagsMsg;
+
+    private Integer typeId;
 
     private String typeMsg;
 

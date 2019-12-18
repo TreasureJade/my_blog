@@ -2,9 +2,7 @@ package com.swpu.uchain.blog.controller;
 
 import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.enums.ResultEnum;
-import com.swpu.uchain.blog.form.CreatArticleForm;
-import com.swpu.uchain.blog.form.PageForm;
-import com.swpu.uchain.blog.form.UpdateArticleForm;
+import com.swpu.uchain.blog.form.*;
 import com.swpu.uchain.blog.service.ArticleService;
 import com.swpu.uchain.blog.util.IpUtil;
 import com.swpu.uchain.blog.util.RandomUtil;
@@ -41,7 +39,7 @@ public class ArticleController {
     private static String uploadPath = "/home/hobo/blog/blog-pic/";
 
     @ApiOperation("获取文章详情")
-    @PostMapping(name = "获取文章详情", value = "/getDetail")
+    @GetMapping(name = "获取文章详情", value = "/getDetail")
     public Object getDetail(Long blogId) {
         return articleService.selectArticleDetail(blogId);
     }
@@ -85,20 +83,26 @@ public class ArticleController {
     }
 
     @ApiOperation("获取所有文章")
-    @PostMapping(name = "获得所有文章", value = "/selectAll")
+    @GetMapping(name = "获得所有文章", value = "/selectAll")
     public Object selectAllArticle(PageForm form) {
         return articleService.selectAll(form.getPageNum(), form.getPageSize());
     }
 
     @ApiOperation("根据标签查询文章")
-    @PostMapping(name = "根据标签查询文章", value = "/selectArticleByTags")
-    public Object selectArticleByTags(Integer tagId) {
-        return articleService.selectArticleByTags(tagId);
+    @GetMapping(name = "根据标签查询文章", value = "/selectArticleByTags")
+    public Object selectArticleByTags(SelectByTagForm form) {
+        return articleService.selectArticleByTags(form);
     }
 
     @ApiOperation("根据种类查询文章")
-    @PostMapping(name = "根据种类查询文章", value = "/selectArticleByTypes")
-    public Object selectArticleByTypes(Integer typeId) {
-        return articleService.selectArticleByTypes(typeId);
+    @GetMapping(name = "根据种类查询文章", value = "/selectArticleByTypes")
+    public Object selectArticleByTypes(SelectByTypeForm form) {
+        return articleService.selectArticleByTypes(form);
+    }
+
+    @ApiOperation("点赞或取消点赞文章")
+    @GetMapping(name = "点赞或取消点赞文章",value = "/giveLike")
+    public Object giveLike(GiveLikeForm form){
+        return articleService.likeArticle(form.getBlogId(),form.getIsLike());
     }
 }

@@ -2,6 +2,7 @@ package com.swpu.uchain.blog.dao;
 
 import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.vo.ArticleListVO;
+import com.swpu.uchain.blog.vo.ArticleVO;
 
 import java.util.List;
 
@@ -18,11 +19,15 @@ public interface ArticleMapper {
 
     Article selectByArticleTitle(String title);
 
+    ArticleVO selectByArticleId(Long id);
+
     List<Article> selectByTagsId(Integer tagsId);
+
+    List<Article> selectByTypeId(Integer typeId);
 
     List<ArticleListVO> getArticleList();
 
-    ArticleListVO selectArticlesByTagId(Integer tagId);
+    List<ArticleListVO> selectArticlesByTagId(Integer tagId);
 
-    ArticleListVO selectByArticlesByTypeId(Integer typeId);
+    List<ArticleListVO> selectByArticlesByTypeId(Integer typeId);
 }

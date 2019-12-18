@@ -8,12 +8,12 @@ import lombok.Data;
  * @description
  */
 @Data
-public class UpdateTagsForm {
+public class UpdateTypesForm {
 
-    @ApiModelProperty("标签id")
+    @ApiModelProperty("分类id")
     private Integer id;
 
-    @ApiModelProperty("标签")
-    private String tagsMsg;
+    @ApiModelProperty("分类")
+    private String typeMsg;
 
 }

@@ -3,12 +3,10 @@ package com.swpu.uchain.blog.controller;
 import com.swpu.uchain.blog.form.InsertTagsForm;
 import com.swpu.uchain.blog.form.UpdateTagsForm;
 import com.swpu.uchain.blog.service.TagsService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author hobo
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/tags")
+@Api(tags = "文章标签接口")
+@CrossOrigin
 public class TagsController {
 
     @Autowired

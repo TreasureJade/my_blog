@@ -64,7 +64,7 @@
     where title=#{title}
     </select>
     <select id="getArticleList" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
-    SELECT  at.id AS blog_id,at.digest,at.author,at.title,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
+    SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,at.type_id,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
 	 FROM article at
 	 LEFT JOIN tags ON tags.id = at.tags_id
      LEFT JOIN comment ct ON at.id= ct.blog_id
@@ -72,7 +72,7 @@
 	GROUP BY at.id
     </select>
   <select id="selectArticlesByTagId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
-    SELECT  at.id AS blog_id,at.digest,at.author,at.title,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
+    SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,tags.tags_msg,at.type_id,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
 	 FROM article at
 	 LEFT JOIN tags ON tags.id = at.tags_id
      LEFT JOIN comment ct ON at.id= ct.blog_id
@@ -81,7 +81,7 @@
 	GROUP BY at.id
   </select>
     <select id="selectByArticlesByTypeId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
-    SELECT  at.id AS blog_id,at.digest,at.author,at.title,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
+    SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,tags.tags_msg,at.type_id,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
 	 FROM article at
 	 LEFT JOIN tags ON tags.id = at.tags_id
      LEFT JOIN comment ct ON at.id= ct.blog_id
@@ -90,8 +90,22 @@
 	GROUP BY at.id
     </select>
     <select id="selectByTagsId" resultType="com.swpu.uchain.blog.entity.Article">
-      SELECT id,tags_id
-      FROM tags
+      SELECT id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
+        update_time, article
+        from article
       WHERE tags_id =#{tagsId}
+    </select>
+    <select id="selectByTypeId" resultType="com.swpu.uchain.blog.entity.Article">
+      SELECT id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
+        update_time, article
+        from article
+      WHERE type_id =#{typeId}
+    </select>
+    <select id="selectByArticleId" resultType="com.swpu.uchain.blog.vo.ArticleVO">
+      SELECT  at.id,at.author,at.title,at.reading,at.comments,at.likes,at.creat_time,at.article,at.tags_id,at.type_id,tags.tags_msg as tag ,types.type_msg as type
+        FROM  article  at
+        LEFT JOIN tags ON at.tags_id= tags.id
+        LEFT JOIN types on at.type_id = types.id
+        WHERE at.id = #{id}
     </select>
 </mapper>

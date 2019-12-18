@@ -8,6 +8,7 @@ import com.swpu.uchain.blog.enums.DefaultEnum;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.form.InsertTagsForm;
 import com.swpu.uchain.blog.form.UpdateTagsForm;
+import com.swpu.uchain.blog.service.ArticleService;
 import com.swpu.uchain.blog.service.TagsService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.util.TimeUtil;
@@ -33,10 +34,13 @@ public class TagsServiceImpl implements TagsService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private ArticleService articleService;
+
 
     @Override
     public ResultVO insertTags(InsertTagsForm form) {
-        if (tagsMapper.selectByTag(form.getTagsMsg()) != null) {
+        if (tagsMapper.selectByTagMsg(form.getTagsMsg()) != null) {
             return ResultVOUtil.error(ResultEnum.TAG_IS_ALREADY_EXIST);
         }
         Tags tags = new Tags();
@@ -73,6 +77,7 @@ public class TagsServiceImpl implements TagsService {
         // 将要删除的标签下的所有文章放入默认分组
         for (Article article : articles) {
             article.setTagsId(DefaultEnum.TAGS_DEFAULT_ENUM.getValue());
+            articleService.update(article);
         }
         if (tagsMapper.deleteByPrimaryKey(id) == 1) {
             return ResultVOUtil.success();

@@ -1,9 +1,7 @@
-package com.swpu.uchain.blog.dto;
+package com.swpu.uchain.blog.vo;
 
-import com.swpu.uchain.blog.entity.Comment;
 import com.swpu.uchain.blog.entity.Tags;
 import com.swpu.uchain.blog.entity.Types;
-import com.swpu.uchain.blog.vo.CommentVO;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,7 +12,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class ArticleDTO {
+public class ArticleVO {
 
     private Long id;
 
@@ -44,19 +42,30 @@ public class ArticleDTO {
     private Long likes;
 
     /**
+     * 标签id
+     */
+    private Integer tagsId;
+
+
+    /**
      * 标签
      */
-    private Tags tags;
+    private String tag;
+
+    /**
+     * 分类id
+     */
+    private Integer typeId;
 
     /**
      * 类型
      */
-    private Types types;
+    private String type;
 
     /**
      * 创建时间
      */
-    private Date creatTime;
+    private String creatTime;
 
     /**
      * 文章主体
@@ -64,7 +73,15 @@ public class ArticleDTO {
     private String article;
 
     /**
+     * 是否点过赞
+     */
+    private Boolean isLike;
+
+    /**
      * 文章所有评论
      */
     private List<CommentVO> commentList;
+
+
+
 }

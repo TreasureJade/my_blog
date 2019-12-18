@@ -14,5 +14,5 @@ public interface TagsMapper {
 
     int updateByPrimaryKey(Tags record);
 
-    Tags selectByTag(String tagsMsg);
+    Tags selectByTagMsg(String tagsMsg);
 }
