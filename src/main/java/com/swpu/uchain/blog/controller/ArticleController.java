@@ -4,6 +4,7 @@ import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.form.*;
 import com.swpu.uchain.blog.service.ArticleService;
+import com.swpu.uchain.blog.service.VisitorService;
 import com.swpu.uchain.blog.util.IpUtil;
 import com.swpu.uchain.blog.util.RandomUtil;
 import com.swpu.uchain.blog.util.ResultVOUtil;
@@ -34,6 +35,9 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private VisitorService visitorService;
 
 
     private static String uploadPath = "/home/hobo/blog/blog-pic/";
@@ -84,7 +88,8 @@ public class ArticleController {
 
     @ApiOperation("获取所有文章")
     @GetMapping(name = "获得所有文章", value = "/selectAll")
-    public Object selectAllArticle(PageForm form) {
+    public Object selectAllArticle(PageForm form,HttpServletRequest request) {
+        visitorService.addVisitorNum(request);
         return articleService.selectAll(form.getPageNum(), form.getPageSize());
     }
 

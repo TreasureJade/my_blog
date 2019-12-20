@@ -57,14 +57,7 @@ public class RedisService {
             returnToPool(jedis);
         }
     }
-//
-//    public <T> T get(KeyPrefix prefix, String key, Object object) {
-//        Jedis jedis = null;
-//        jedis = jedisPool.getResource();
-//        String realKey = prefix.getPrefix() + key;
-//        String str = jedis.get(realKey);
-//        T t = stringToBean(str, object);
-//    }
+
 
     /**
      * 设置单个对象
