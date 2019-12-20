@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.swpu.uchain.blog.dao.LeaveMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.LeaveMessage" >
+    <id column="leave_message_id" property="leaveMessageId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="reply_user_id" property="replyUserId" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="leave_msg" property="leaveMsg" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from leave_message
+    where leave_message_id = #{leaveMessageId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.LeaveMessage" >
+    insert into leave_message (leave_message_id, user_id, reply_user_id, 
+      pid, leave_msg, creat_time
+      )
+    values (#{leaveMessageId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{replyUserId,jdbcType=BIGINT}, 
+      #{pid,jdbcType=BIGINT}, #{leaveMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.LeaveMessage" >
+    update leave_message
+    set user_id = #{userId,jdbcType=BIGINT},
+      reply_user_id = #{replyUserId,jdbcType=BIGINT},
+      pid = #{pid,jdbcType=BIGINT},
+      leave_msg = #{leaveMsg,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=VARCHAR}
+    where leave_message_id = #{leaveMessageId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select leave_message_id, user_id, reply_user_id, pid, leave_msg, creat_time
+    from leave_message
+    where leave_message_id = #{leaveMessageId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select leave_message_id, user_id, reply_user_id, pid, leave_msg, creat_time
+    from leave_message
+  </select>
+    <select id="getAllParentLeaveMsg" resultType="java.lang.Long">
+      select leave_message_id
+      from leave_message
+      where pid = 0
+    </select>
+  <select id="selectByLeaveMsgId" resultType="com.swpu.uchain.blog.vo.LeaveMsgVO">
+       SELECT u.user_id,u.username,u.head_portrait ,lm.leave_message_id,lm.leave_msg,lm.creat_time
+		FROM  leave_message lm
+		LEFT JOIN  user u on c.user_id = u.user_id
+		where c.comment_id = #{id}
+  </select>
+  <select id="selectByPid" resultType="com.swpu.uchain.blog.vo.ReplyVO">
+    SELECT u.user_id,u.username,u.head_portrait ,lm.leave_message_id as comment_id,
+           lm.leave_msg as comment_msg,lm.creat_time,lm.reply_user_id
+    FROM
+	user  u,
+	leave_message lm
+    WHERE u.user_id = c.user_id
+    and c.pid = #{pid}
+  </select>
+</mapper>

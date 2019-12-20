@@ -129,6 +129,8 @@ public class UserServiceImpl implements UserService {
         final String realToken = jwtTokenUtil.generateToken(userDetails);
         response.addHeader(jwtProperties.getTokenName(), realToken);
         Map map = new HashMap();
+        map.put("username",user.getUsername());
+        map.put("headPortrait",user.getHeadPortrait());
         map.put("role", user.getRole());
         map.put("token", realToken);
         return ResultVOUtil.success(map);
