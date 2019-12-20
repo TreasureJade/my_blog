@@ -6,6 +6,10 @@ import com.swpu.uchain.blog.redis.RedisService;
 import com.swpu.uchain.blog.redis.key.IpKey;
 import com.swpu.uchain.blog.service.VisitorService;
 import com.swpu.uchain.blog.util.IpUtil;
+import com.swpu.uchain.blog.util.ResultVOUtil;
+import com.swpu.uchain.blog.vo.IndexMsgVO;
+import com.swpu.uchain.blog.vo.ResultVO;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +41,15 @@ public class VisitorServiceImpl implements VisitorService {
             }
 
         }
+    }
+
+    @Override
+    public ResultVO getIndexMsg() {
+        IndexMsgVO vo = new IndexMsgVO();
+        vo.setArticleTotal(visitorMapper.getArticleTotal());
+        vo.setCommentTotal(visitorMapper.getCommentTotal());
+        vo.setLeaveMessageTotal(visitorMapper.getLeaveMsgTotal());
+        vo.setTagTotal(visitorMapper.getTagsTotal());
+        return ResultVOUtil.success(vo);
     }
 }

@@ -1,5 +1,7 @@
 package com.swpu.uchain.blog.service;
 
+import com.swpu.uchain.blog.vo.ResultVO;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -13,5 +15,7 @@ public interface VisitorService {
      * @return
      */
     void addVisitorNum(HttpServletRequest request);
+
+    ResultVO getIndexMsg();
 
 }
