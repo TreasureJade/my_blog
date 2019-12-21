@@ -35,7 +35,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (httpServletRequest.getMethod().equals("OPTIONS")) {
+        String flag = "OPTIONS";
+        if (flag.equals(httpServletRequest.getMethod())) {
             log.info("浏览器的请求预处理");
             httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
             httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
@@ -51,13 +52,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             log.info("checking authentication for user " + phoneNum);
 
             if (phoneNum != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                log.info("token中的username不为空，Context中的authentication为空时,进行token验证");
 
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(phoneNum);
                 log.info("加载UserDetails:{}", userDetails.getUsername());
                 if (jwtTokenUtil.validateToken(authtoken, userDetails)) {
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    log.info("authenticated user" + phoneNum + ", setting security context");
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
