@@ -1,10 +1,9 @@
 package com.swpu.uchain.blog.security;
 
 import com.alibaba.fastjson.JSON;
-import com.swpu.uchain.blog.accessctro.RoleContro;
+import com.swpu.uchain.blog.accessctro.RoleControl;
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
-import com.swpu.uchain.blog.enums.RoleEnum;
 import com.swpu.uchain.blog.service.UserService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -41,11 +40,11 @@ public class AuthRoleInterceptor extends HandlerInterceptorAdapter {
         log.info("============执行权限验证============");
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            RoleContro roleContro = handlerMethod.getMethodAnnotation(RoleContro.class);
-            if (roleContro == null) {
+            RoleControl roleControl = handlerMethod.getMethodAnnotation(RoleControl.class);
+            if (roleControl == null) {
                 return true;
             }
-            Integer roleValue = roleContro.role().getValue();
+            Integer roleValue = roleControl.role().getValue();
             Integer userValue = user.getRole();
             log.info("RoleValue:{},userRole:{}", roleValue, userValue);
             if (userValue >= roleValue) {

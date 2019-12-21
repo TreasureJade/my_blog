@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @ClassName RoleContro
+ * @ClassName RoleControl
  * @Author hobo
  * @Date 19-4-22 下午7:45
  * @Description
@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RoleContro {
+public @interface RoleControl {
     RoleEnum role();
 }
