@@ -1,6 +1,6 @@
 package com.swpu.uchain.blog.controller;
 
-import com.swpu.uchain.blog.accessctro.RoleContro;
+import com.swpu.uchain.blog.accessctro.RoleControl;
 import com.swpu.uchain.blog.enums.RoleEnum;
 import com.swpu.uchain.blog.service.VisitorService;
 import com.swpu.uchain.blog.util.ResultVOUtil;
@@ -29,7 +29,7 @@ public class IndexController {
         return visitorService.getIndexMsg();
     }
 
-    @RoleContro(role = RoleEnum.ADMIN)
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("/更新底部网站更新时间")
     @PostMapping("/updateTime")
     public Object updateTime(String date) {
