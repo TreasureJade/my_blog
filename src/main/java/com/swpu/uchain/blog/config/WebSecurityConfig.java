@@ -86,11 +86,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/configuration/ui").permitAll()
                 .antMatchers("/configuration/security").permitAll()
                 //配置允许匿名访问的路径
-                .antMatchers("/anon/*","/article/*","/getMsg").permitAll()
-                .antMatchers("/article/uploadpic/").permitAll()
+                .antMatchers("/anon/*","/getMsg").permitAll()
+                // 首页
+                .antMatchers("/getMsg").permitAll()
+                // 文章
+                .antMatchers("/article/uploadpic/","/article/getDetail","/article/selectArticleByTags","/article/selectArticleByTypes","/article/selectAll").permitAll()
+                // 留言
                 .antMatchers("/leaveMsg/all").permitAll()
                 // 博客图片地址
                 .antMatchers("/home/hobo/blog/blog-pic/*").permitAll()
+                // 标签
+                .antMatchers("/tags/all").permitAll()
+                //分类
+                .antMatchers("/types/all").permitAll()
                 // 头像图片地址
                 .antMatchers("/home/hobo/blog/head-pic/*").permitAll()
                 .anyRequest().authenticated();

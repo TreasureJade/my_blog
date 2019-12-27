@@ -1,5 +1,7 @@
 package com.swpu.uchain.blog.controller;
 
+import com.swpu.uchain.blog.accessctro.RoleControl;
+import com.swpu.uchain.blog.enums.RoleEnum;
 import com.swpu.uchain.blog.form.InsertTagsForm;
 import com.swpu.uchain.blog.form.UpdateTagsForm;
 import com.swpu.uchain.blog.service.TagsService;
@@ -21,18 +23,21 @@ public class TagsController {
     @Autowired
     private TagsService tagsService;
 
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("添加标签")
     @PostMapping(name = "添加标签", value = "/insert")
     public Object insertTags(InsertTagsForm form) {
         return tagsService.insertTags(form);
     }
 
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("更新标签")
     @PostMapping(name = "更新标签", value = "/update")
     public Object updateTags(UpdateTagsForm form) {
         return tagsService.updateTags(form);
     }
 
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("删除标签")
     @GetMapping(name = "删除标签",value = "/delete")
     public Object deleteTags(Integer id) {

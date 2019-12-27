@@ -1,7 +1,9 @@
 package com.swpu.uchain.blog.controller;
 
+import com.swpu.uchain.blog.accessctro.RoleControl;
 import com.swpu.uchain.blog.entity.Article;
 import com.swpu.uchain.blog.enums.ResultEnum;
+import com.swpu.uchain.blog.enums.RoleEnum;
 import com.swpu.uchain.blog.form.*;
 import com.swpu.uchain.blog.service.ArticleService;
 import com.swpu.uchain.blog.service.VisitorService;
@@ -48,6 +50,8 @@ public class ArticleController {
         return articleService.selectArticleDetail(blogId);
     }
 
+
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("上传文章")
     @PostMapping(name = "上传文章", value = "/insertArticle")
     public Object insertArticle(@Valid CreatArticleForm form) {
@@ -74,12 +78,14 @@ public class ArticleController {
         return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
     }
 
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("删除文章")
     @GetMapping(name = "删除文章", value = "/deleteArticle")
     public Object deleteArticle(Long blogId) {
         return articleService.deleteArticle(blogId);
     }
 
+    @RoleControl(role = RoleEnum.ADMIN)
     @ApiOperation("更新文章")
     @PostMapping(name = "更改文章", value = "/updateArticle")
     public Object updateArticle(@Valid UpdateArticleForm form) {
