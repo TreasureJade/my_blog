@@ -16,5 +16,7 @@ public class IndexMsgVO {
     private int leaveMessageTotal;
 
     private int commentTotal;
+
+    private String updateTime;
 }
 
