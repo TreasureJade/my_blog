@@ -14,7 +14,7 @@ public class CreatLeaveMsgForm {
 
     @ApiModelProperty("留言内容")
     @NotNull(message = "留言内容不能为空")
-    private String commentMsg;
+    private String leaveMsg;
 
     @ApiModelProperty("被回复人 ")
     private Long replyUserId;

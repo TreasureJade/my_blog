@@ -47,8 +47,8 @@
   <select id="selectByLeaveMsgId" resultType="com.swpu.uchain.blog.vo.LeaveMsgVO">
        SELECT u.user_id,u.username,u.head_portrait ,lm.leave_message_id,lm.leave_msg,lm.creat_time
 		FROM  leave_message lm
-		LEFT JOIN  user u on c.user_id = u.user_id
-		where c.comment_id = #{id}
+		LEFT JOIN  user u on lm.user_id = u.user_id
+		where lm.leave_message_id = #{id}
   </select>
   <select id="selectByPid" resultType="com.swpu.uchain.blog.vo.ReplyVO">
     SELECT u.user_id,u.username,u.head_portrait ,lm.leave_message_id as comment_id,
@@ -56,7 +56,7 @@
     FROM
 	user  u,
 	leave_message lm
-    WHERE u.user_id = c.user_id
-    and c.pid = #{pid}
+    WHERE u.user_id = lm.user_id
+    and lm.pid = #{pid}
   </select>
 </mapper>

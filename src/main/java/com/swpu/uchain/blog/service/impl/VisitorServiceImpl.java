@@ -4,9 +4,11 @@ import com.swpu.uchain.blog.dao.VisitorMapper;
 import com.swpu.uchain.blog.entity.Visitor;
 import com.swpu.uchain.blog.redis.RedisService;
 import com.swpu.uchain.blog.redis.key.IpKey;
+import com.swpu.uchain.blog.redis.key.UpdateTimeKey;
 import com.swpu.uchain.blog.service.VisitorService;
 import com.swpu.uchain.blog.util.IpUtil;
 import com.swpu.uchain.blog.util.ResultVOUtil;
+import com.swpu.uchain.blog.util.TimeUtil;
 import com.swpu.uchain.blog.vo.IndexMsgVO;
 import com.swpu.uchain.blog.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,8 @@ public class VisitorServiceImpl implements VisitorService {
         if (visitor == null) {
             visitor = visitorMapper.selectByPage("total_page");
             visitor.setTotalNum(visitor.getTotalNum() + 1);
-            if (visitorMapper.updateByPrimaryKey(visitor)==1){
-                redisService.set(IpKey.ipKey,Ip,visitor);
+            if (visitorMapper.updateByPrimaryKey(visitor) == 1) {
+                redisService.set(IpKey.ipKey, Ip, visitor);
             }
 
         }
@@ -49,6 +51,12 @@ public class VisitorServiceImpl implements VisitorService {
         vo.setCommentTotal(visitorMapper.getCommentTotal());
         vo.setLeaveMessageTotal(visitorMapper.getLeaveMsgTotal());
         vo.setTagTotal(visitorMapper.getTagsTotal());
+        String updateTime = redisService.get(UpdateTimeKey.timeKey, "updateTime", String.class);
+        if (updateTime == null || "".equals(updateTime)) {
+            String time = TimeUtil.getTimeCN();
+            redisService.set(UpdateTimeKey.timeKey, "updateTime", time);
+        }
+        vo.setUpdateTime(redisService.get(UpdateTimeKey.timeKey, "updateTime", String.class));
         return ResultVOUtil.success(vo);
     }
 }

@@ -36,8 +36,8 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     @Override
     public ResultVO insertLeaveMsg(CreatLeaveMsgForm form) {
         LeaveMessage leaveMessage = new LeaveMessage();
-        BeanUtils.copyProperties(form,leaveMessage);
-        if (leaveMessage.getReplyUserId()==null){
+        BeanUtils.copyProperties(form, leaveMessage);
+        if (leaveMessage.getReplyUserId() == null) {
             leaveMessage.setReplyUserId(0L);
         }
         User user = userService.getCurrentUser();
@@ -46,7 +46,7 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         }
         leaveMessage.setUserId(user.getUserId());
         leaveMessage.setCreatTime(TimeUtil.getNowTime());
-        if (messageMapper.insert(leaveMessage)==1){
+        if (messageMapper.insert(leaveMessage) == 1) {
             return ResultVOUtil.success();
         }
         return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
@@ -56,7 +56,7 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     public ResultVO selectAllLeaveMsg() {
         List<LeaveMsgVO> result = new ArrayList<>();
         List<Long> leaveMsgIdList = messageMapper.getAllParentLeaveMsg();
-        for (Long leaveMsgId : leaveMsgIdList){
+        for (Long leaveMsgId : leaveMsgIdList) {
             LeaveMsgVO vo = messageMapper.selectByLeaveMsgId(leaveMsgId);
             List<ReplyVO> vos = messageMapper.selectByPid(vo.getLeaveMessageId());
             List<ReplyVO> reply = new ArrayList<>();
