@@ -181,17 +181,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ResultVO selectArticleByTags(SelectByTagForm form) {
-        PageHelper.startPage(form.getPageNum(), form.getPageSize());
         List<ArticleListVO> list = articleMapper.selectArticlesByTagId(form.getTagId());
-        PageInfo<ArticleListVO> result = new PageInfo<>(list);
         return ResultVOUtil.success(list);
     }
 
     @Override
     public ResultVO selectArticleByTypes(SelectByTypeForm form) {
-        PageHelper.startPage(form.getPageNum(), form.getPageSize());
         List<ArticleListVO> list = articleMapper.selectByArticlesByTypeId(form.getTypeId());
-        PageInfo<ArticleListVO> result = new PageInfo<>(list);
         return ResultVOUtil.success(list);
     }
 
