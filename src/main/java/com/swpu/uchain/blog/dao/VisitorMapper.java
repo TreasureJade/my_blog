@@ -16,4 +16,6 @@ public interface VisitorMapper {
     int getCommentTotal();
 
     int getLeaveMsgTotal();
+
+    int getVisitorTotal();
 }

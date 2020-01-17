@@ -13,7 +13,7 @@ public class IndexMsgVO {
 
     private int tagTotal;
 
-    private int leaveMessageTotal;
+    private int visitorTotal;
 
     private int commentTotal;
 

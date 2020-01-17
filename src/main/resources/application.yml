@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 7001
 spring:
   datasource:
     username: root
@@ -17,10 +17,13 @@ spring:
       time-between-eviction-runs-millis: 60000
       # 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
-  thymeleaf:
-    encoding: UTF-8
-    cache: false
-    mode: HTML5
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 102400000
+      max-file-size: 10MB
+      max-request-size: 10MB
+
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
@@ -30,7 +33,7 @@ mybatis:
     use-generated-keys: true
 #redis
 redis:
-  host: 49.234.63.223
+  host: 47.112.4.177
   port: 6379
   #超时时间
   timeout: 10
@@ -40,7 +43,7 @@ redis:
   poolMaxIdle: 500
   #最大等待时间
   poolMaxWait: 500
-  password: "cins1108"
+  password: "sunset0923"
 
 
 jwt:
@@ -50,7 +53,10 @@ jwt:
   tokenName: Authorization
 
 file:
-  headPic: "/home/hobo/head-pic/defult.jpeg"
+  head-pic:
+      upload-pic: "/home/hobo/blog/head-pic/"
+      default-pic: "/home/hobo/blog/head-pic/defult.jpeg"
+  blog-pic: "/home/hobo/blog/blog-pic/"
 
 pagehelper:
   helper-dialect: mysql

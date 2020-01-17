@@ -29,4 +29,7 @@
   <select id="getLeaveMsgTotal" resultType="java.lang.Integer">
     select COUNT(*) from leave_message
   </select>
+  <select id="getVisitorTotal" resultType="java.lang.Integer">
+    select total_num from visitor where page='total_page'
+  </select>
 </mapper>

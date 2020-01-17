@@ -12,7 +12,7 @@ import lombok.Getter;
 public enum ResultEnum {
 
     USER_NOT_EXIST(1, "用户不存在"),
-    PASSWORD_ERROR(2, "用户名错误"),
+    PASSWORD_ERROR(2, "密码错误"),
     PHONE_CODE_ERROR(3, "手机验证码错误"),
     PHONE_CODE_SEND_ERROR(4, "手机验证码发送失败"),
 

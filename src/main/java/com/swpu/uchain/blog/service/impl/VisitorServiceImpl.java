@@ -48,8 +48,8 @@ public class VisitorServiceImpl implements VisitorService {
     public ResultVO getIndexMsg() {
         IndexMsgVO vo = new IndexMsgVO();
         vo.setArticleTotal(visitorMapper.getArticleTotal());
-        vo.setCommentTotal(visitorMapper.getCommentTotal());
-        vo.setLeaveMessageTotal(visitorMapper.getLeaveMsgTotal());
+        vo.setCommentTotal(visitorMapper.getCommentTotal() + visitorMapper.getLeaveMsgTotal());
+        vo.setVisitorTotal(visitorMapper.getVisitorTotal());
         vo.setTagTotal(visitorMapper.getTagsTotal());
         String updateTime = redisService.get(UpdateTimeKey.timeKey, "updateTime", String.class);
         if (updateTime == null || "".equals(updateTime)) {
