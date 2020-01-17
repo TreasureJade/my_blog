@@ -67,7 +67,9 @@ public class ArticleController {
         assert fileName != null;
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String newFileName = RandomUtil.getRandomStringByLength(10) + "." + suffix;
-        String URL = IpUtil.getHostIp();
+//        String URL = IpUtil.getHostIp();
+        //TODO  键入服务器的公网ip地址
+        String URL = "公网Ip";
         String filePath = UploadFileUtil.uploadFile(uploadPath + newFileName, upload);
         if (!"".equals(filePath)) {
             map.put("uploaded", 1);

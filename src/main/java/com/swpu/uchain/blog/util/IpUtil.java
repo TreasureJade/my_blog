@@ -27,7 +27,7 @@ public class IpUtil {
                             //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
                             && !ip.isLoopbackAddress()
                             && !ip.getHostAddress().contains(":")) {
-                        return ip.getHostAddress() + ":8083";
+                        return ip.getHostAddress() + ":7000";
                     }
                 }
             }
