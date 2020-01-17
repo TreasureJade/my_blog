@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = jwtUserDetailService.loadUserByUsername(loginForm.getPhoneNum());
 
         if (!new BCryptPasswordEncoder().matches(loginForm.getPassword(), userDetails.getPassword())) {
-            throw new GlobalException(ResultEnum.PASSWORD_ERROR);
+            return ResultVOUtil.error(ResultEnum.PASSWORD_ERROR);
         }
 
         Authentication token = new UsernamePasswordAuthenticationToken(loginForm.getPhoneNum(), loginForm.getPassword(), userDetails.getAuthorities());
