@@ -90,7 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 首页
                 .antMatchers("/getMsg").permitAll()
                 // 文章
-                .antMatchers("/article/uploadpic/","/article/getDetail","/article/selectArticleByTags","/article/selectArticleByTypes","/article/selectAll").permitAll()
+                .antMatchers("/article/uploadpic","/article/getDetail","/article/selectArticleByTags","/article/selectArticleByTypes","/article/selectAll").permitAll()
                 // 留言
                 .antMatchers("/leaveMsg/all").permitAll()
                 // 博客图片地址
@@ -101,6 +101,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/types/all").permitAll()
                 // 头像图片地址
                 .antMatchers("/home/hobo/blog/head-pic/*").permitAll()
+                // md编辑器
+                .antMatchers("/img/*","/fonts/*","/js/*","/css/*").permitAll()
                 .anyRequest().authenticated();
 
         //配置自己的验证过滤器
