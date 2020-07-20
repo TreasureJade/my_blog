@@ -70,6 +70,7 @@
      LEFT JOIN comment ct ON at.id= ct.blog_id
 	 LEFT JOIN types ON types.id = at.type_id
 	GROUP BY at.id
+	ORDER BY at.id desc
     </select>
   <select id="selectArticlesByTagId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
     SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,tags.tags_msg,at.type_id,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
@@ -79,6 +80,7 @@
 	 LEFT JOIN types ON types.id = at.type_id
 	 WHERE tags.id=#{tagId}
 	GROUP BY at.id
+	ORDER BY at.id desc
   </select>
     <select id="selectByArticlesByTypeId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
     SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,tags.tags_msg,at.type_id,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
@@ -88,6 +90,7 @@
 	 LEFT JOIN types ON types.id = at.type_id
 	 WHERE types.id=#{typeId}
 	GROUP BY at.id
+	ORDER BY at.id desc
     </select>
     <select id="selectByTagsId" resultType="com.swpu.uchain.blog.entity.Article">
       SELECT id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
