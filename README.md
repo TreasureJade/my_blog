@@ -1,6 +1,5 @@
 # my_blog
 ## 页面展示
-### [项目地址](http://www.cchobo.com)
 
 **首页展示**
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2020063022245688.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjUzNTkxMw==,size_16,color_FFFFFF,t_70#pic_center)
