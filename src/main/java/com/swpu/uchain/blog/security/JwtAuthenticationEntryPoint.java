@@ -1,6 +1,6 @@
 package com.swpu.uchain.blog.security;
 
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.swpu.uchain.blog.enums.ResultEnum;
 import com.swpu.uchain.blog.util.ResultVOUtil;
 import com.swpu.uchain.blog.vo.ResultVO;
@@ -31,11 +31,12 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     public void commence(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse,
                          AuthenticationException e) throws IOException, ServletException {
-        httpServletResponse.setHeader("Access_Control_Allow_Origin","*");
+        httpServletResponse.setHeader("Access_Control_Allow_Origin", "*");
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("text/html; charset=utf-8");
         ResultVO result = ResultVOUtil.error(ResultEnum.AUTHENTICATION_ERROR);
-        log.info("需要身份认证:{}" ,result);
-        httpServletResponse.getWriter().append(JSON.toJSONString(result));
+        log.info("需要身份认证:{}", result);
+        Gson gson = new Gson();
+        httpServletResponse.getWriter().append(gson.toJson(result));
     }
 }

@@ -1,8 +1,7 @@
 package com.swpu.uchain.blog.redis;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisPool;
@@ -20,6 +19,8 @@ import java.util.List;
 public class RedisService {
     @Autowired
     JedisPool jedisPool;
+
+    private static Gson gson;
 
     /**
      * 清空缓存数据
@@ -86,28 +87,6 @@ public class RedisService {
                 jedis.setex(realKey, seconds, str);
             }
             return true;
-        } finally {
-            returnToPool(jedis);
-        }
-    }
-
-    /**
-     * 获取对象数组的缓存
-     *
-     * @param prefix
-     * @param key
-     * @param clazz
-     * @return
-     */
-    public <T> List<T> getArraylist(KeyPrefix prefix, String key, Class<T> clazz) {
-        Jedis jedis = null;
-        try {
-            jedis = jedisPool.getResource();
-            //生成真正的key
-            String realKey = prefix.getPrefix() + key;
-            String str = jedis.get(realKey);
-            List<T> list = JSONObject.parseArray(str, clazz);
-            return list;
         } finally {
             returnToPool(jedis);
         }
@@ -207,9 +186,9 @@ public class RedisService {
         } else if (clazz == long.class || clazz == Long.class) {
             return "" + value;
         } else if (clazz == List.class) {
-            return "" + JSONArray.toJSONString(value);
+            return "" + gson.toJson(value);
         } else {
-            return JSON.toJSONString(value);
+            return gson.toJson(value);
         }
 
     }
@@ -225,9 +204,10 @@ public class RedisService {
         } else if (clazz == long.class || clazz == Long.class) {
             return (T) Long.valueOf(str);
         } else if (clazz == List.class) {
-            return JSONArray.parseObject(str, clazz);
+            return gson.fromJson(str, new TypeToken<List<T>>() {
+            }.getType());
         } else {
-            return JSON.toJavaObject(JSON.parseObject(str), clazz);
+            return gson.fromJson(str, clazz);
         }
     }
 

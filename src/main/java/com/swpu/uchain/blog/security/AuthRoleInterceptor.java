@@ -1,6 +1,6 @@
 package com.swpu.uchain.blog.security;
 
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.swpu.uchain.blog.accessctro.RoleControl;
 import com.swpu.uchain.blog.entity.User;
 import com.swpu.uchain.blog.enums.ResultEnum;
@@ -28,11 +28,13 @@ public class AuthRoleInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private UserService userService;
 
+    private static Gson gson;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
-        String json = JSON.toJSONString(ResultVOUtil.error(ResultEnum.AUTHENTICATION_ERROR));
+        String json = gson.toJson(ResultVOUtil.error(ResultEnum.AUTHENTICATION_ERROR));
         User user = userService.getCurrentUser();
         if (user == null) {
             return true;
@@ -50,7 +52,7 @@ public class AuthRoleInterceptor extends HandlerInterceptorAdapter {
             if (userValue >= roleValue) {
                 return true;
             } else {
-                json = JSON.toJSONString(ResultVOUtil.error(ResultEnum.PERMISSION_DENNY));
+                json = gson.toJson(ResultVOUtil.error(ResultEnum.PERMISSION_DENNY));
                 log.info("============权限不足===============");
             }
         }
