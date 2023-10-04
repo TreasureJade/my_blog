@@ -1,0 +1,27 @@
+.has-feedback{
+    position: relative;
+}
+
+#title{
+    height: 50px;
+    padding-left: 60px;
+}
+
+
+#titleSpan{
+    line-height: 50px;
+    position: absolute;
+    left: 15px;
+}
+
+#author{
+    height: 50px;
+    padding-left: 60px;
+}
+
+
+#authorSpan{
+    line-height: 50px;
+    position: absolute;
+    left: 15px;
+}

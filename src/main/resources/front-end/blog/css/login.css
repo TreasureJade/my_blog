@@ -1,0 +1,50 @@
+#phone{
+    height: 50px;
+    padding-left: 60px;
+}
+
+#password{
+    height: 50px;
+    padding-left: 60px;
+}
+
+
+#userSpan {
+    line-height: 50px;
+    position: absolute;
+    left: 15px;
+}
+
+#pwSpan{
+    line-height: 50px;
+    position: absolute;
+    left: 20px;
+}
+
+.has-feedback{
+    position: relative;
+}
+
+#forget-pw{
+    position: absolute;
+    right: 0px;
+}
+
+#logBtn{
+    height: 45px;
+    width: 40%;
+    border-radius: 25px;
+}
+
+#RegBtn{
+    height: 45px;
+    width: 40%;
+    position: absolute;
+    right: 0;
+    border-radius: 25px;
+}
+
+hr{
+    width: 100%;
+    position: relative;
+}

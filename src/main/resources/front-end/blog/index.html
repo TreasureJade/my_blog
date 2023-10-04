@@ -1,0 +1,252 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Karigor - Portfolio Bootstrap4 Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/icon.png">
+
+    <!-- Google font (font-family: 'Dosis', sans-serif;) -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins.css">
+
+    <!-- Style Css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/custom.css">
+    <script type="application/javascript" src="js/ToolAlert/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="js/ToolAlert/sweetalert.css">
+    <link rel="stylesheet"  type="text/css" href="css/pagination.css">
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <!-- Wrapper -->
+    <div id="wrapper" class="wrapper">
+
+        <span class="cursor"></span>
+
+        <!-- Header -->
+        <header class="header sticky-header fixed-header">
+            <div class="container">
+                <div class="header-inner d-none d-lg-flex">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <!--左上角KARIGOR 要改为Hobo-->
+                            <img src="img/logo/logo-dark.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <button class="header-navigation-trigger">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+                        <nav class="main-navigation">
+                            <ul>
+                                <li><a href="index.html">首页</a></li>
+                                <!--个人介绍-->
+                                <li><a href="about.html">关于我</a></li>
+                                <!--可用于标签分类  首选3-->
+                                <li><a href="tag.html">标签</a></li>
+                                <li><a href="type.html">分类</a></li>
+                                <!--博客主页-->
+                                <li><a href="leaveMessage.html">留言</a></li>
+                                <li><a href="WriteBlog.html">写博客</a></li>
+                                <li><a href="personal-information.html">个人信息</a></li>
+                                <li><a href="login.html">登录</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="mobile-menu-wrapper d-block d-lg-none">
+                    <div class="mobile-menu clearfix">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="img/logo/logo-dark.png" alt="mobile logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--// Header -->
+        <!--<div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>-->
+        <!-- Hero Area -->
+        <div class="hero-area bg-white">
+            <div class="container">
+                <div class="hero-area-inner">
+                    <div class="hero-area-text">
+                        <h1>
+                            HELLO, <br> I AM HOBO...
+                        </h1>
+                        <h5>A progressive Java programmer</h5>
+                        <a href="about.html" class="readmore">ABOUT ME</a>
+                    </div>
+                    <div class="hero-area-image">
+                        <img src="img/slider/slider-image-1.png" alt="man mask">
+                    </div>
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="https://github.com/TreasureJade"><i class="fa fa-github"></i></a></li>
+                            <li><a href="https://blog.csdn.net/weixin_42535913"><img src="img/logo/csdn.jpg" style="height: 28px;width: 20px"/></a></li>
+                            <li><a href="#"><i class="fa fa-qq" data-container="body" data-toggle="popover" data-placement="bottom" data-content="1056024860" id="hhh"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--// Hero Area -->
+
+        <!-- Page Conttent -->
+        <main class="page-content">
+
+            <!-- Portfolios Ara -->
+            <div class="cr-section portfolios-area section-padding-lg bg-white">
+
+                <div class="container">
+                    <div class="row" id="blogContainer" style="position: relative;height: 100%">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="cr-section services-area section-padding-bottom-lg bg-white">
+                <div class="container">
+                    <div class="row justify-content-center">
+                            <div class="section-title text-center">
+                                <div id="pagination"></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <!--// Portfolios Ara -->
+
+            <!-- Service Area -->
+            <div class="cr-section services-area section-padding-bottom-lg bg-white">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="section-title text-center">
+                                <h2>网站信息</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <!-- Single Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service text-center">
+                                <h5>文章总数</h5>
+                                <p id="articleP">58篇</p>
+                            </div>
+                        </div>
+                        <!--// Single Service -->
+
+                        <!-- Single Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service text-center">
+                                <h5>标签总数</h5>
+                                <p id="tagP">34个</p>
+                            </div>
+                        </div>
+                        <!--// Single Service -->
+
+                        <!-- Single Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service text-center">
+                                <h5>留言总数</h5>
+                                <p id="messageP">162条</p>
+                            </div>
+                        </div>
+                        <!--// Single Service -->
+
+                        <!-- Single Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service text-center">
+                                <h5>评论总数</h5>
+                                <p id="commentP">227条</p>
+                            </div>
+                        </div>
+                        <!--// Single Service -->
+
+                        <!-- Single Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service text-center">
+                                <h5>网站最后更新</h5>
+                                <p ondblclick="changeTime(this)" id="timeP">2019年07月14日23点</p>
+                            </div>
+                        </div>
+                        <!--// Single Service -->
+
+                        <!-- Single Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service text-center">
+                                <h5>网站运行天数</h5>
+                                <p  id="sitetime">445天19时42分16秒</p>
+                            </div>
+                        </div>
+                        <!--// Single Service -->
+
+                    </div>
+                </div>
+            </div>
+            <!--// Service Area -->
+
+        </main>
+        <!--// Page Conttent -->
+
+        <!-- Footer Area -->
+        <!--<footer class="footer-area bg-white">-->
+        <!--<div class="container">-->
+        <!--<ul class="footer-inner">-->
+        <!--<li>34/5 evergreen road, concord city <br> New work, United States</li>-->
+        <!--<li><a href="tel://+008341237654">+00834 123 7654</a></li>-->
+        <!--<li><a href="mailto://info@example.com">info@example.com</a></li>-->
+        <!--<li>Copyright &copy; More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</footer>-->
+        <!--// Footer Area -->
+        <footer class="footer-area bg-white">
+            <div class="container">
+                <ul class="footer-inner">
+                    <li>© 2019-2020 曹**</li>
+                    <li><a href="http://www.beian.miit.gov.cn/">蜀ICP备19036310号</a></li>
+                </ul>
+            </div>
+        </footer>
+        <!--// Wrapper -->
+
+        <!-- Js Files -->
+        <script type="application/javascript" src="js/vendor/modernizr-3.6.0.min.js"></script>
+        <script type="application/javascript" src="js/vendor/jquery-3.4.1.js"></script>
+        <script type="application/javascript" src="js/vendor/jquery.pagination.js"></script>
+        <script type="application/javascript" src="js/popper.min.js"></script>
+        <script type="application/javascript" src="js/bootstrap.min.js"></script>
+        <script type="application/javascript" src="js/plugins.js"></script>
+        <script type="application/javascript" src="js/main.js"></script>
+        <script type="application/javascript" src="js/index.js"></script>
+    </div>
+</body>
+
+
+
+</html>

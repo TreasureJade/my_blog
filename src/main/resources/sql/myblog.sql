@@ -4,9 +4,7 @@
  Source Server         : aliyun
  Source Server Type    : MySQL
  Source Server Version : 80018
- Source Host           : 47.112.4.177:3306
  Source Schema         : myblog
-
  Target Server Type    : MySQL
  Target Server Version : 80018
  File Encoding         : 65001

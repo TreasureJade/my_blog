@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swpu.uchain.blog.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.User">
+<mapper namespace="com.by.blog.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.by.blog.entity.User">
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -16,7 +16,7 @@
     delete from user
     where commentId = #{commentId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.User">
+  <insert id="insert" parameterType="com.by.blog.entity.User">
     insert into user (user_id, phone_number, `password`,
       `role`, username, true_name, 
       email, birthday, head_portrait
@@ -26,7 +26,7 @@
       #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.User">
+  <update id="updateByPrimaryKey" parameterType="com.by.blog.entity.User">
     update user
     set phone_number = #{phoneNumber,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
@@ -49,13 +49,13 @@
     head_portrait
     from user
   </select>
-  <select id="getUserByPhone" resultType="com.swpu.uchain.blog.entity.User">
+  <select id="getUserByPhone" resultType="com.by.blog.entity.User">
     select user_id, phone_number, `password`, `role`, username, true_name, email, birthday,
     head_portrait
     from user
     where phone_number=#{phoneNumber}
   </select>
-  <select id="selectByPhoneNum" resultType="com.swpu.uchain.blog.vo.UserVO">
+  <select id="selectByPhoneNum" resultType="com.by.blog.vo.UserVO">
     select user_id, phone_number,username, true_name, email, birthday,
     head_portrait
     from user

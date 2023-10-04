@@ -1,0 +1,82 @@
+.has-feedback{
+    position: relative;
+}
+
+#up{
+    position: relative;
+}
+
+#picBtn{
+    position: absolute;
+    width: 100px;
+    height: 35px;
+    right: 0;
+    top: 35px;
+}
+
+#nickname{
+     height: 50px;
+     padding-left: 60px;
+     width: 100%;
+ }
+
+#per-name{
+    height: 50px;
+    padding-left: 60px;
+    width: 100%;
+}
+
+#e-mail{
+    height: 50px;
+    padding-left: 60px;
+    width: 100%;
+}
+
+#nameSpan {
+    line-height: 50px;
+    position: absolute;
+    left: 15px;
+}
+
+#emailSpan {
+    line-height: 50px;
+    position: absolute;
+    left: 15px;
+}
+
+
+#usernameSpan {
+    line-height: 50px;
+    position: absolute;
+    left: 15px;
+}
+
+#birthdaySpan {
+    line-height: 50px;
+    position: absolute;
+    left: 17px;
+}
+
+#birth-day{
+    height: 50px;
+    padding-left: 60px;
+    width: 100%;
+}
+
+#per-btn{
+    height: 45px;
+    width: 40%;
+    border-radius: 25px;
+}
+
+#back-btn{
+    height: 45px;
+    width: 40%;
+    position: absolute;
+    right: 0;
+    border-radius: 25px;
+}
+
+#back-btn>a{
+    color: #0a001f;
+}

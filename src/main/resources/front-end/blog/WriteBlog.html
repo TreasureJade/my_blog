@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>创建博客-Write Blog</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="./build/translations/zh-cn.js"></script>
+    <script src="./build/ckeditor.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/icon.png">
+
+    <!-- Google font (font-family: 'Dosis', sans-serif;) -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/plugins.css">
+    <!-- Style Css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/amazeui.min.css" />
+    <link rel="stylesheet" href="css/editor.css">
+    <script type="application/javascript" src="js/ToolAlert/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="js/ToolAlert/sweetalert.css">
+    <style type="text/css">
+
+        .ck-content{
+            min-height: 400px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="wrapper" class="wrapper" style="height: 100%">
+
+        <!-- Header -->
+        <header class="header sticky-header">
+            <div class="container">
+                <div class="header-inner d-none d-lg-flex">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="img/logo/logo-dark.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <button class="header-navigation-trigger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <nav class="main-navigation">
+                            <ul>
+                                <li><a href="index.html">首页</a></li>
+                                <!--个人介绍-->
+                                <li><a href="about.html">关于我</a></li>
+                                <!--可用于标签分类  首选3-->
+                                <li><a href="tag.html">标签</a></li>
+                                <li><a href="type.html">分类</a></li>
+                                <!--博客主页-->
+                                <li><a href="leaveMessage.html">留言</a></li>
+                                <li><a href="WriteBlog.html">写博客</a></li>
+                                <li><a href="personal-information.html">个人信息</a></li>
+                                <li><a href="login.html">登录</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="mobile-menu-wrapper d-block d-lg-none">
+                    <div class="mobile-menu clearfix">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="img/logo/logo-dark.png" alt="mobile logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--// Header -->
+
+        <!-- Breadcrumb Area -->
+        <div class="breadcrumb-area bg-grey">
+            <div class="container">
+                <div class="cr-breadcrumb">
+                    <h2>Hobo</h2>
+                    <ul>
+                        <li><a href="index.html">Write</a></li>
+                        <li>写博客</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="am-g">
+            <div class="am-u-lg-10 am-u-md-10 am-u-sm-centered" style="margin-top: 50px">
+                <div class="form-group has-feedback">
+                    <div class="Title">
+                        <span class="fa fa-bookmark-o fa-2x form-control-feedback" id="titleSpan"></span>
+                        <input type="text" class="form-control"  placeholder="文章标题" id="title" style="border-radius: 10px">
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <div class="Author">
+                        <span class="fa fa-user-circle-o fa-2x form-control-feedback" id="authorSpan"></span>
+                        <input type="text" class="form-control"  placeholder="文章作者" id="author" style="border-radius: 10px">
+                    </div>
+                </div>
+                <form action="[URL]" method="post" style="margin-left: 0px">
+                    <textarea name="content" id="editor">
+                        &lt;p&gt;This is some sample content.&lt;/p&gt;
+                    </textarea>
+                    <p><input type="submit" value="Submit" style="display: none"></p>
+                </form>
+                <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" value="完成" style="background-color:#f0f0f0;color: black;border:#f0f0f0;border-radius: 10px">
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">类型选择</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form style="margin-left: 0" id="selectForm">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">类型选择:</label>
+                                <select class="custom-select" id="recipient-name">
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">标签选择:</label>
+                                <select class="custom-select" id="message-text">
+
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="subBlog()">上传</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="js/vendor/modernizr-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <!--<script src="js/ajax-mail.js"></script>-->
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="application/javascript">
+        var myEditor = null;
+        ClassicEditor
+            .create(document.querySelector("#editor"),{
+                ckfinder:{
+                    uploadUrl:'http://47.112.4.177:7001/article/uploadpic'
+                },
+                image: {
+                    // You need to configure the image toolbar, too, so it uses the new style buttons.
+                    toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+
+                    styles: [
+                        // This option is equal to a situation where no style is applied.
+                        'full',
+
+                        // This represents an image aligned to the left.
+                        'alignLeft',
+
+                        // This represents an image aligned to the right.
+                        'alignRight'
+                    ]
+                },
+                toolbar: ['heading',
+                    '|','fontsize','fontfamily','fontcolor','highlight','bold','italic','link','bulletedList','numberedList',
+                    '|','indent','outdent',
+                    '|','imageUpload','blockQuote','insertTable','mediaEmbed','undo','redo','alignment'
+                ]
+            })
+            .then(editor => {
+                myEditor = editor;
+                myEditor.config = {
+                    language: 'zh-ch',
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script type="application/javascript" src="js/editor.js"></script>
+
+
+
+</body>
+</html>

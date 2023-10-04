@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swpu.uchain.blog.dao.ArticleMapper">
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Article">
+<mapper namespace="com.by.blog.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.by.blog.entity.Article">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="digest" jdbcType="VARCHAR" property="digest" />
     <result column="author" jdbcType="VARCHAR" property="author" />
@@ -19,7 +19,7 @@
     delete from article
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Article">
+  <insert id="insert" parameterType="com.by.blog.entity.Article">
     insert into article (id, digest, author, 
       title, reading, comments, 
       likes, tags_id, type_id, 
@@ -31,7 +31,7 @@
       #{creatTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{article,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Article">
+  <update id="updateByPrimaryKey" parameterType="com.by.blog.entity.Article">
     update article
     set digest = #{digest,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
@@ -57,13 +57,13 @@
     update_time, article
     from article
   </select>
-    <select id="selectByArticleTitle" resultType="com.swpu.uchain.blog.entity.Article">
+    <select id="selectByArticleTitle" resultType="com.by.blog.entity.Article">
     select id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
     update_time, article
     from article
     where title=#{title}
     </select>
-    <select id="getArticleList" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
+    <select id="getArticleList" resultType="com.by.blog.vo.ArticleListVO">
     SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,at.type_id,tags.tags_msg,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
 	 FROM article at
 	 LEFT JOIN tags ON tags.id = at.tags_id
@@ -72,7 +72,7 @@
 	GROUP BY at.id
 	ORDER BY at.id desc
     </select>
-  <select id="selectArticlesByTagId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
+  <select id="selectArticlesByTagId" resultType="com.by.blog.vo.ArticleListVO">
     SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,tags.tags_msg,at.type_id,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
 	 FROM article at
 	 LEFT JOIN tags ON tags.id = at.tags_id
@@ -82,7 +82,7 @@
 	GROUP BY at.id
 	ORDER BY at.id desc
   </select>
-    <select id="selectByArticlesByTypeId" resultType="com.swpu.uchain.blog.vo.ArticleListVO">
+    <select id="selectByArticlesByTypeId" resultType="com.by.blog.vo.ArticleListVO">
     SELECT  at.id AS blog_id,at.digest,at.author,at.title,at.tags_id,tags.tags_msg,at.type_id,types.type_msg,at.creat_time,COUNT(ct.blog_id) AS commentSum
 	 FROM article at
 	 LEFT JOIN tags ON tags.id = at.tags_id
@@ -92,19 +92,19 @@
 	GROUP BY at.id
 	ORDER BY at.id desc
     </select>
-    <select id="selectByTagsId" resultType="com.swpu.uchain.blog.entity.Article">
+    <select id="selectByTagsId" resultType="com.by.blog.entity.Article">
       SELECT id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
         update_time, article
         from article
       WHERE tags_id =#{tagsId}
     </select>
-    <select id="selectByTypeId" resultType="com.swpu.uchain.blog.entity.Article">
+    <select id="selectByTypeId" resultType="com.by.blog.entity.Article">
       SELECT id, digest, author, title, reading, comments, likes, tags_id, type_id, creat_time,
         update_time, article
         from article
       WHERE type_id =#{typeId}
     </select>
-    <select id="selectByArticleId" resultType="com.swpu.uchain.blog.vo.ArticleVO">
+    <select id="selectByArticleId" resultType="com.by.blog.vo.ArticleVO">
       SELECT  at.id,at.author,at.title,at.reading,at.comments,at.likes,at.creat_time,at.article,at.tags_id,at.type_id,tags.tags_msg as tag ,types.type_msg as type
         FROM  article  at
         LEFT JOIN tags ON at.tags_id= tags.id

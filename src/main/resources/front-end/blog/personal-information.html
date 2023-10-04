@@ -1,0 +1,170 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Register</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/icon.png">
+
+    <!-- Google font (font-family: 'Dosis', sans-serif;) -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins.css">
+
+    <!-- Style Css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Styles -->
+    <script type="application/javascript" src="js/ToolAlert/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="js/ToolAlert/sweetalert.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/amazeui.min.css" />
+    <link rel="stylesheet" href="css/personal-information.css"/>
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <!-- Wrapper -->
+    <div id="wrapper" class="wrapper">
+
+        <!-- Header -->
+        <header class="header sticky-header">
+            <div class="container">
+                <div class="header-inner d-none d-lg-flex">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="img/logo/logo-dark.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <button class="header-navigation-trigger">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+                        <nav class="main-navigation">
+                            <ul>
+                                <li><a href="index.html">首页</a></li>
+                                <!--个人介绍-->
+                                <li><a href="about.html">关于我</a></li>
+                                <!--可用于标签分类  首选3-->
+                                <li><a href="tag.html">标签</a></li>
+                                <li><a href="type.html">分类</a></li>
+                                <!--博客主页-->
+                                <li><a href="leaveMessage.html">留言</a></li>
+                                <li><a href="WriteBlog.html">写博客</a></li>
+                                <li><a href="personal-information.html">个人信息</a></li>
+                                <li><a href="login.html">登录</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="mobile-menu-wrapper d-block d-lg-none">
+                    <div class="mobile-menu clearfix">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="img/logo/logo-dark.png" alt="mobile logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--// Header -->
+
+        <!-- Breadcrumb Area -->
+        <div class="breadcrumb-area bg-grey">
+            <div class="container">
+                <div class="cr-breadcrumb">
+                    <h2>Hobo</h2>
+                    <ul>
+                        <li><a href="index.html">Personal-Information</a></li>
+                        <li>个人信息</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="am-g">
+            <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+                <br/>
+                <br/>
+                <form method="post" class="am-form" style="margin-left: 0">
+                    <div id="up">
+                        <input type="file" name="file" accept="image/*" id="upimg" style="display: none">
+                        <img id="pic" src="img\author-image\author-image-2.png">
+                        <input type="button" id="picBtn" class="am-btn am-btn-primary am-btn-sm am-fl" value="上传头像" onclick="upImg()">
+                    </div>
+                </form>
+                    <br/>
+                <form method="post" class="am-form" style="margin-left: 0">
+                    <div class="form-group has-feedback">
+                        <div class="name">
+                            <span class="fa fa-user-circle-o fa-2x form-control-feedback" id="nameSpan"></span>
+                            <input type="text" class="form-control"  placeholder="请输入您的用户名" id="nickname" style="border-radius: 25px">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group has-feedback">
+                        <div class="username">
+                            <span class="fa fa-user-circle-o fa-2x form-control-feedback" id="usernameSpan"></span>
+                            <input type="text" class="form-control"  placeholder="请输入您的真实姓名" id="per-name" style="border-radius: 25px">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group has-feedback">
+                        <div class="email">
+                            <span class="fa fa-envelope-o fa-2x form-control-feedback" id="emailSpan"></span>
+                            <input type="text" class="form-control"  placeholder="请输入邮箱" id="e-mail" style="border-radius: 25px">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group has-feedback">
+                        <div class="birthday">
+                            <span class="fa fa-calendar-check-o fa-2x form-control-feedback" id="birthdaySpan"></span>
+                            <input type="date" class="form-control"  placeholder="请输入邮箱" id="birth-day"  value="1999-11-11" style="border-radius: 25px">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group has-feedback">
+                        <input type="button" value="修改信息" onclick="AccPolish()" id="per-btn" class="am-btn am-btn-primary am-btn-sm am-fl">
+                        <button id="back-btn" class="am-btn am-btn-primary am-btn-sm am-fl"><a href="login.html"><i class="fa fa-undo" aria-hidden="true"></i>返回登录</a></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    </div>
+    <!--// Wrapper -->
+
+
+    <!-- Js Files -->
+    <script src="js/vendor/modernizr-3.6.0.min.js "></script>
+    <script src="js/vendor/jquery-3.3.1.min.js "></script>
+    <script src="js/popper.min.js "></script>
+    <script src="js/bootstrap.min.js "></script>
+    <script src="js/plugins.js "></script>
+    <!--<script src="js/ajax-mail.js "></script>-->
+    <script src="js/main.js "></script>
+    <script src="js/per-information.js"></script>
+</body>
+
+
+
+</html>

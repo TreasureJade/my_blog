@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.swpu.uchain.blog.dao.VisitorMapper" >
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Visitor" >
+<mapper namespace="com.by.blog.dao.VisitorMapper" >
+  <resultMap id="BaseResultMap" type="com.by.blog.entity.Visitor" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="page" property="page" jdbcType="VARCHAR" />
     <result column="total_num" property="totalNum" jdbcType="BIGINT" />
   </resultMap>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Visitor" >
+  <update id="updateByPrimaryKey" parameterType="com.by.blog.entity.Visitor" >
     update visitor
     set page = #{page,jdbcType=VARCHAR},
       total_num = #{totalNum,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPage" resultType="com.swpu.uchain.blog.entity.Visitor">
+  <select id="selectByPage" resultType="com.by.blog.entity.Visitor">
     select id, page, total_num
     from visitor
     where page=#{page}

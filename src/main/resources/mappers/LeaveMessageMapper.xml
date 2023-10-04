@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.swpu.uchain.blog.dao.LeaveMessageMapper" >
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.LeaveMessage" >
+<mapper namespace="com.by.blog.dao.LeaveMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.by.blog.entity.LeaveMessage" >
     <id column="leave_message_id" property="leaveMessageId" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="reply_user_id" property="replyUserId" jdbcType="BIGINT" />
@@ -13,7 +13,7 @@
     delete from leave_message
     where leave_message_id = #{leaveMessageId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.LeaveMessage" >
+  <insert id="insert" parameterType="com.by.blog.entity.LeaveMessage" >
     insert into leave_message (leave_message_id, user_id, reply_user_id, 
       pid, leave_msg, creat_time
       )
@@ -21,7 +21,7 @@
       #{pid,jdbcType=BIGINT}, #{leaveMsg,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.LeaveMessage" >
+  <update id="updateByPrimaryKey" parameterType="com.by.blog.entity.LeaveMessage" >
     update leave_message
     set user_id = #{userId,jdbcType=BIGINT},
       reply_user_id = #{replyUserId,jdbcType=BIGINT},
@@ -44,13 +44,13 @@
       from leave_message
       where pid = 0
     </select>
-  <select id="selectByLeaveMsgId" resultType="com.swpu.uchain.blog.vo.LeaveMsgVO">
+  <select id="selectByLeaveMsgId" resultType="com.by.blog.vo.LeaveMsgVO">
        SELECT u.user_id,u.username,u.head_portrait ,lm.leave_message_id,lm.leave_msg,lm.creat_time
 		FROM  leave_message lm
 		LEFT JOIN  user u on lm.user_id = u.user_id
 		where lm.leave_message_id = #{id}
   </select>
-  <select id="selectByPid" resultType="com.swpu.uchain.blog.vo.ReplyVO">
+  <select id="selectByPid" resultType="com.by.blog.vo.ReplyVO">
     SELECT u.user_id,u.username,u.head_portrait ,lm.leave_message_id as comment_id,
            lm.leave_msg as comment_msg,lm.creat_time,lm.reply_user_id
     FROM

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.swpu.uchain.blog.dao.UserLikesMapper" >
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.UserLikes" >
+<mapper namespace="com.by.blog.dao.UserLikesMapper" >
+  <resultMap id="BaseResultMap" type="com.by.blog.entity.UserLikes" >
     <id column="user_id" property="userId" jdbcType="BIGINT" />
     <id column="blog_id" property="blogId" jdbcType="BIGINT" />
     <result column="is_like" property="isLike" jdbcType="BIT" />
@@ -11,13 +11,13 @@
     where user_id = #{userId,jdbcType=BIGINT}
       and blog_id = #{blogId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.UserLikes" >
+  <insert id="insert" parameterType="com.by.blog.entity.UserLikes" >
     insert into user_likes (user_id, blog_id, is_like
       )
     values (#{userId,jdbcType=BIGINT}, #{blogId,jdbcType=BIGINT}, #{isLike,jdbcType=BIT}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.UserLikes" >
+  <update id="updateByPrimaryKey" parameterType="com.by.blog.entity.UserLikes" >
     update user_likes
     set is_like = #{isLike,jdbcType=BIT}
     where user_id = #{userId,jdbcType=BIGINT}

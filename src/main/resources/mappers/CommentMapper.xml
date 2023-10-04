@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swpu.uchain.blog.dao.CommentMapper">
-  <resultMap id="BaseResultMap" type="com.swpu.uchain.blog.entity.Comment">
+<mapper namespace="com.by.blog.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.by.blog.entity.Comment">
     <id column="comment_id" jdbcType="BIGINT" property="commentId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="blog_id" jdbcType="BIGINT" property="blogId" />
@@ -14,7 +14,7 @@
     delete from comment
     where comment_id = #{commentId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.swpu.uchain.blog.entity.Comment">
+  <insert id="insert" parameterType="com.by.blog.entity.Comment">
     insert into comment (comment_id, user_id, blog_id,
       reply_user_id, pid, comment_msg, 
       creat_time)
@@ -22,7 +22,7 @@
       #{replyUserId,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{commentMsg,jdbcType=VARCHAR}, 
       #{creatTime,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.swpu.uchain.blog.entity.Comment">
+  <update id="updateByPrimaryKey" parameterType="com.by.blog.entity.Comment">
     update comment
     set user_id = #{userId,jdbcType=BIGINT},
       blog_id = #{blogId,jdbcType=BIGINT},
@@ -45,13 +45,13 @@
     select comment_id from comment
     where blog_id = #{blogId} and pid =0
   </select>
-  <select id="selectCommentById" resultType="com.swpu.uchain.blog.vo.CommentVO">
+  <select id="selectCommentById" resultType="com.by.blog.vo.CommentVO">
    SELECT u.user_id,u.username,u.head_portrait ,c.comment_id,c.comment_msg,c.creat_time
 		FROM  comment c
 		LEFT JOIN  user u on c.user_id = u.user_id
 		where c.comment_id = #{id}
   </select>
-  <select id="selectByPid" resultType="com.swpu.uchain.blog.vo.ReplyVO">
+  <select id="selectByPid" resultType="com.by.blog.vo.ReplyVO">
     SELECT u.user_id,u.username,u.head_portrait ,c.comment_id,c.comment_msg,c.creat_time,c.reply_user_id
     FROM
 	user  u,

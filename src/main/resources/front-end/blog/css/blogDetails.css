@@ -1,0 +1,63 @@
+#submitBtn:hover{
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 992px){
+    #theHeartUl{
+        float: right;
+    }
+    #deleteBtn{
+        margin-top: -40px;
+        float: right;
+    }
+    #newBtn{
+        margin-top: -40px;
+        margin-right: 100px;
+        float: right;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+    #theHeartUl{
+        float: right;
+    }
+    #deleteBtn{
+        margin-top: -40px;
+        float: right;
+    }
+    #newBtn{
+        margin-top: -40px;
+        margin-right: 100px;
+        float: right;
+    }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 576px){
+    #theHeartUl{
+        float: right;
+    }
+    #deleteBtn{
+        margin-top: -40px;
+        float: right;
+    }
+    #newBtn{
+        margin-top: -40px;
+        margin-right: 100px;
+        float: right;
+    }
+
+}
+
+@media only screen and (max-width: 575px){
+    #theHeartUl{
+        float: left;
+    }
+    #deleteBtn{
+        margin-top: -90px;
+        float: left;
+    }
+    #newBtn{
+        margin-top: -90px;
+        float: right;
+    }
+}

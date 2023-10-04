@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/icon.png">
+
+    <!-- Google font (font-family: 'Dosis', sans-serif;) -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/plugins.css">
+    <!-- Style Css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Styles -->
+    <script type="application/javascript" src="js/ToolAlert/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="js/ToolAlert/sweetalert.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/amazeui.min.css" />
+    <link rel="stylesheet" href="css/login.css"/>
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <!-- Wrapper -->
+    <div id="wrapper" class="wrapper">
+
+        <!-- Header -->
+        <header class="header sticky-header">
+            <div class="container">
+                <div class="header-inner d-none d-lg-flex">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="img/logo/logo-dark.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <button class="header-navigation-trigger">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+                        <nav class="main-navigation">
+                            <ul>
+                                <li><a href="index.html">首页</a></li>
+                                <!--个人介绍-->
+                                <li><a href="about.html">关于我</a></li>
+                                <!--可用于标签分类  首选3-->
+                                <li><a href="tag.html">标签</a></li>
+                                <li><a href="type.html">分类</a></li>
+                                <!--博客主页-->
+                                <li><a href="leaveMessage.html">留言</a></li>
+                                <li><a href="WriteBlog.html">写博客</a></li>
+                                <li><a href="personal-information.html">个人信息</a></li>
+                                <li><a href="login.html">登录</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="mobile-menu-wrapper d-block d-lg-none">
+                    <div class="mobile-menu clearfix">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="img/logo/logo-dark.png" alt="mobile logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--// Header -->
+
+        <!-- Breadcrumb Area -->
+        <div class="breadcrumb-area bg-grey">
+            <div class="container">
+                <div class="cr-breadcrumb">
+                    <h2>Hobo</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>登录</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="am-g">
+            <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+                <hr>
+                <br>
+                <br>
+                <form method="post" class="form-horizontal" style="margin-left: 0">
+                    <div class="form-group has-feedback">
+                        <div class="username">
+                            <span class="fa fa-user-circle-o fa-2x form-control-feedback" id="userSpan"></span>
+                            <input type="text" class="form-control"  placeholder="Username" id="phone" style="border-radius: 25px">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group pwd-top has-feedback">
+                        <div class="password">
+                            <span class="fa fa-unlock-alt fa-2x form-control-feedback" id="pwSpan"></span>
+                            <input type="password" class="form-control"  placeholder="Password" id="password" style="border-radius: 25px">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group pwd-top has-feedback">
+                        <input id="remember-me" type="radio">
+                        记住密码
+                        <span id="forget-pw"><a href="">&nbsp;忘记密码?</a></span>
+                    </div>
+                    <div class="form-group pwd-top has-feedback">
+                        <input value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl" onclick="getCode(this)" id="logBtn">
+                        <input  value="注册" id="RegBtn" class="am-btn am-btn-primary am-btn-sm am-fl" onclick="toRegister()">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <!--// Footer Area -->
+
+    </div>
+    <!--// Wrapper -->
+
+
+    <!-- Js Files -->
+    <script type="text/javascript" src="js/vendor/modernizr-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <!--<script src="js/ajax-mail.js"></script>-->
+    <script type="text/javascript" src="js/main.js"></script>
+    <!-- js -->
+    <script type="text/javascript" src="js/login.js"></script>
+</body>
+
+
+
+</html>

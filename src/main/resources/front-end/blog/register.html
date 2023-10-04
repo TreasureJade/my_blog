@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Register</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/icon.png">
+
+    <!-- Google font (font-family: 'Dosis', sans-serif;) -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins.css">
+
+    <!-- Style Css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/amazeui.min.css" />
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <!-- Wrapper -->
+    <div id="wrapper" class="wrapper">
+
+        <!-- Header -->
+        <header class="header sticky-header">
+            <div class="container">
+                <div class="header-inner d-none d-lg-flex">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="img/logo/logo-dark.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <button class="header-navigation-trigger">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+                        <nav class="main-navigation">
+                            <ul>
+                                <li><a href="index.html">首页</a></li>
+                                <!--个人介绍-->
+                                <li><a href="about.html">关于我</a></li>
+                                <!--可用于标签分类  首选3-->
+                                <li><a href="tag.html">标签</a></li>
+                                <li><a href="type.html">分类</a></li>
+                                <!--博客主页-->
+                                <li><a href="leaveMessage.html">留言</a></li>
+                                <li><a href="WriteBlog.html">写博客</a></li>
+                                <li><a href="personal-information.html">个人信息</a></li>
+                                <li><a href="login.html">登录</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="mobile-menu-wrapper d-block d-lg-none">
+                    <div class="mobile-menu clearfix">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="img/logo/logo-dark.png" alt="mobile logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--// Header -->
+
+        <!-- Breadcrumb Area -->
+        <div class="breadcrumb-area bg-grey">
+            <div class="container">
+                <div class="cr-breadcrumb">
+                    <h2>Hobo</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>登录</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="am-g">
+            <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered" id="am-u-two">
+
+                <form method="post" class="am-form" style="margin-left: 30px">
+                    <label for="telephone">手机号码:</label>
+                    <input type="phone" name="" id="telephone" value="" placeholder="请输入手机号">
+                    <br>
+                    <label for="code">验证码:</label>
+                    <br>
+                    <div class="codes"><input name="" type="code" id="code" value="" placeholder="请输入验证码"><button id="sentcode" onclick="getCodeS(this);" type="button">发送验证码</button>
+                        <button id="resetCode" style="display:none;"><span id="second">60</span>秒后重发</button>
+                    </div>
+                    <br>
+                    <label for="password">用户名:</label>
+                    <input type="text" name=" " id="nickname" value="" placeholder="请输入您的用户名 ">
+                    <br>
+                    <label for="password">密码:</label>
+                    <input type="password" name=" " id="password" value="" placeholder="请输入密码">
+                    <br>
+                    <label for="password-two">确认密码:</label>
+                    <input type="password" name="" id="password-two" value="" placeholder="请再次输入密码">
+                    <br>
+                    <div class="am-cf ">
+                        <input type="button" name="" value="注 册 " class="am-btn am-btn-primary am-btn-sm am-fl " onclick="accpolish();" type="button">
+                        <div class="am-span">
+                            <span><a href="login.html ">&nbsp;返回登录</a></span></div>
+
+                    </div>
+            </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+
+
+
+    <!--// Footer Area -->
+
+    </div>
+    <!--// Wrapper -->
+
+
+    <!-- Js Files -->
+    <script src="js/vendor/modernizr-3.6.0.min.js "></script>
+    <script src="js/vendor/jquery-3.3.1.min.js "></script>
+    <script src="js/popper.min.js "></script>
+    <script src="js/bootstrap.min.js "></script>
+    <script src="js/plugins.js "></script>
+    <!--<script src="js/ajax-mail.js "></script>-->
+    <script src="js/main.js "></script>
+    <script src="js/register.js "></script>
+</body>
+
+
+
+</html>
